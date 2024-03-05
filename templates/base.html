@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>Base Template</title>{% endblock %}
+</head>
+<body>
+    <header>
+        <div class="header">
+            <div class="logo"><a href="#">Home</a></div>
+            <div class="main-menu">
+                <ul>
+                    <li><a href="{% url 'index-page' %}">Register</a></li>
+                    <li><a href="{% url 'components-library' %}">Components Library</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        {% block main_content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer">
+            <span>&copy; 2024 PC Show Off</span>
+            <span><a href="#">About</a></span>
+            <span><a href="#">Contacts</a></span>
+        </div>
+    </footer>
+</body>
+</html>
