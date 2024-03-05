@@ -35,6 +35,18 @@ if not ALLOWED_HOSTS:
 
 # Application definition
 
+MY_APPS = [
+    'pc_show_off.case',
+    'pc_show_off.common',
+    'pc_show_off.cpu',
+    'pc_show_off.gpu',
+    'pc_show_off.mobo',
+    'pc_show_off.pc',
+    'pc_show_off.psu',
+    'pc_show_off.ram',
+    'pc_show_off.storage',
+]
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -42,7 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
+] + MY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
