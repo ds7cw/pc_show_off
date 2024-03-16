@@ -8,10 +8,18 @@
 <body>
     <header>
         <div class="header">
-            <div class="logo"><a href="#">Home</a></div>
+            <div class="logo"><a href="{% url 'index-page' %}">Home</a></div>
             <div class="main-menu">
                 <ul>
-                    <li><a href="{% url 'index-page' %}">Register</a></li>
+                    {% if user.is_authenticated %}
+                        <form action="{% url 'logout-page' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    {% else %}
+                        <li><a href="{% url 'register-page' %}">Register</a></li>
+                        <li><a href="{% url 'login-page' %}">Login</a></li>
+                    {% endif %}
                     <li><a href="{% url 'components-library' %}">Components Library</a></li>
                 </ul>
             </div>
