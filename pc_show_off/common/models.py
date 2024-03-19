@@ -9,14 +9,6 @@ class ComputerComponent(models.Model):
     class Meta:
         abstract = True
 
-    class ManufacturerChoices(models.TextChoices):
-        pass
-
-    manufacturer = models.CharField(
-        max_length=15,
-        choices = ManufacturerChoices.choices,
-    )
-
     model_name = models.CharField(
         max_length=50,
         unique=True,
@@ -30,3 +22,6 @@ class ComputerComponent(models.Model):
         UserModel,
         on_delete=models.DO_NOTHING,
     )
+
+    def __str__(self) -> str:
+        return self.model_name
