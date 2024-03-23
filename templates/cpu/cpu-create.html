@@ -8,4 +8,15 @@
 <h1>
     CPU Create!!!
 </h1>
+
+<div>
+    <form action="{% url 'cpu-create' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">
+            Submit
+        </button>
+    </form>
+</div>
 {% endblock %}

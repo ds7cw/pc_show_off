@@ -8,4 +8,18 @@
 <h1>
     CPU List!!!
 </h1>
+
+<div>
+    <h2>Verified CPU's</h2>
+    {% for cpu in verified %}
+        <p>{{ cpu.manufacturer }} {{ cpu.model_name }} - {{ cpu.total_cores }} cores @ {{ cpu.p_core_base_clock }} - {{ cpu.p_core_boost_clock }} GHz</p>
+    {% endfor %}
+</div>
+
+<div>
+    <h2>CPU Entries Under Review</h2>
+    {% for cpu in not_verified %}
+    <p>{{ cpu.manufacturer }} {{ cpu.model_name }} - {{ cpu.total_cores }} cores @ {{ cpu.p_core_base_clock }} - {{ cpu.p_core_boost_clock }} GHz</p>
+    {% endfor %}
+</div>
 {% endblock %}

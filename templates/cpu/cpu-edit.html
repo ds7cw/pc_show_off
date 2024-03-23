@@ -8,4 +8,15 @@
 <h1>
     CPU Edit!!!
 </h1>
+
+<div>
+    <form action="{% url 'cpu-edit' cpu_id=cpu.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit">
+            Verify
+        </button>
+    </form>
+</div>
 {% endblock %}
