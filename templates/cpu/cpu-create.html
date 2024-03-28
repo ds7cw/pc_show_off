@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>CPU Create</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    CPU Create!!!
-</h1>
 
-<div>
-    <form action="{% url 'cpu-create' %}" method="post">
+<div class="card">
+    <h2>
+        CPU Create
+    </h2>
+    <form class="form-group" action="{% url 'cpu-create' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="form-submit">
             Submit
         </button>
     </form>

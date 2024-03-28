@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: linear-gradient(to right, #4CAF50, #2196F3);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.logo {
+    font-size: 24px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: white;
+}
+
+nav {
+    display: flex;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+.right-side {
+    display: flex;
+    align-items: center;
+}
+
+header .btn {
+    background: #2196F3;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    margin: 0 5px;
+    cursor: pointer;
+} 
+
+header .btn a {
+    text-decoration: none;
+    color: white;
+}
+
+main {
+    width: 70%;
+    margin: 0 auto;
+
+}
+
+footer {
+    background: linear-gradient(to right, #2196F3, #4CAF50);
+    color: white;
+    padding: 10px 0
+}

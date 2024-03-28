@@ -1,16 +1,35 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %}<title>Base Template</title>{% endblock %}
+    {% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 </head>
 <body>
     <header>
-        <div class="header">
-            <div class="logo"><a href="{% url 'index-page' %}">Home</a></div>
-            <div class="main-menu">
-                <ul>
+            <div class="logo"><a href="{% url 'index-page' %}">PCSO</a></div>
+            <nav>
+                <a href="{% url 'index-page' %}">Home</a>
+                <a href="#">Getting Started</a>
+                <a href="{% url 'components-library' %}">Library</a>
+                <a href="#">Hall of Fame</a>
+            </nav>
+
+            <div class="right-side">
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'logout-page' %}" method="post">
+                        {% csrf_token %}
+                        <button class="btn" type="submit">Logout</button>
+                    </form>
+                {% else %} 
+                    <button class="btn"><a href="{% url 'register-page' %}">Register</a></button> 
+                    <button class="btn"><a href="{% url 'login-page' %}">Login</a></button>
+                {% endif %}
+            </div>
+                <!-- <ul>
                     {% if user.is_authenticated %}
                         <form action="{% url 'logout-page' %}" method="post">
                             {% csrf_token %}
@@ -21,9 +40,7 @@
                         <li><a href="{% url 'login-page' %}">Login</a></li>
                     {% endif %}
                     <li><a href="{% url 'components-library' %}">Components Library</a></li>
-                </ul>
-            </div>
-        </div>
+                </ul> -->
     </header>
 
     <main>
