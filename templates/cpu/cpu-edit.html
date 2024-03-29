@@ -1,20 +1,22 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>CPU Edit</title>
 {% endblock %}
 
 {% block main_content %}
-<h1>
-    CPU Edit!!!
-</h1>
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
-<div>
-    <form action="{% url 'cpu-edit' cpu_id=cpu.pk %}" method="post">
+<div class="card">
+    <h2>
+        CPU Edit
+    </h2>
+    <form class="form-group" action="{% url 'cpu-edit' cpu_id=cpu.pk %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit">
+        <button type="submit" class="form-submit">
             Verify
         </button>
     </form>
