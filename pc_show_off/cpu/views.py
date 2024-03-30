@@ -53,8 +53,13 @@ def cpu_edit(request, cpu_id):
     return render(request, 'cpu/cpu-edit.html',context)
 
 
+@login_required(login_url='login-page')
 def cpu_details(request, cpu_id):
-    pass
+    
+    cpu = Cpu.objects.filter(pk=cpu_id).first()
+    context = {'cpu': cpu}
+
+    return render(request, 'cpu/cpu-details.html', context)
 
 
 def cpu_delete(request, cpu_id):

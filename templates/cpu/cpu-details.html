@@ -1,11 +1,78 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>CPU Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    CPU Details!!!
-</h1>
+<div class="row">
+    <h2 class="head">
+        {{ cpu.model_name }} Details:
+    </h2>
+    <div class="col-details">
+        <h2>Essentials</h2>
+        <hr>
+        <div>
+            <span>Manufacturer: </span>
+            <span>{{ cpu.manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ cpu.model_name }}</span>
+        </div>
+
+        <div>
+            <span>Architecture: </span>
+            <span>{{ cpu.cpu_architecture }}</span>
+        </div>
+
+        <h2>CPU Specifications</h2>
+        <hr>
+        <div>
+            <span>Total Cores: </span>
+            <span>{{ cpu.total_cores }}</span>
+        </div>
+
+        <div>
+            <span>Performance Core Base Frequency: </span>
+            <span>{{ cpu.p_core_base_clock }} GHz</span>
+        </div>
+
+        <div>
+            <span>Performance Core Max Frequency: </span>
+            <span>{{ cpu.p_core_boost_clock }} GHz</span>
+        </div>
+
+        <div>
+            <span>L3 Cache: </span>
+            <span>{{ cpu.cpu_level_3_cache }} MB</span>
+        </div>
+
+        <div>
+            <span>Supported Socket: </span>
+            <span>{{ cpu.cpu_socket }}</span>
+        </div>
+
+        <h2>Supplemental Information</h2>
+        <hr>
+        <div>
+            <span>Release Date: </span>
+            <span>{{ cpu.cpu_release_date }}</span>
+        </div>
+    </div>
+
+    <div class="col-definition">
+        <h2>What is a Central Processing Unit (CPU)?</h2>
+        <hr>
+        <p>The Central Processing Unit (CPU) is the primary component of a computer that acts as its “control center.” The CPU, also referred to as the “central” or “main” processor, is a complex set of electronic circuitry that runs the machine’s operating system and apps. The CPU interprets, processes and executes instructions, most often from the hardware and software programs running on the device.</p>
+        <p>The CPU performs arithmetic, logic, and other operations to transform data input into more usable information output. While the CPU must contain at least one processing core, many contain multiple cores. A server with two hexa-core CPUs, for example, will have a total of 12 processors.</p>
+
+        <h2>What You Need to Know About a Central Processing Unit (CPU)?</h2>
+        <p>Running multiple processor units simultaneously allows for multi-tasking and can dramatically improve performance. But while important, the number of cores and processors aren’t the only factors that need to be taken into consideration. To determine the best CPU for a project, developers typically focus on the specific applications that will be dependent on the CPU and identify the most important features based on those apps’ requirements. Among the many things to consider are: </p>
+        <p>Source: <a href="https://www.arm.com/glossary/cpu">arm</a></p>
+    </div>
+</div>
 {% endblock %}
