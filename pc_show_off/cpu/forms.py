@@ -68,3 +68,30 @@ class CreateCpuModelForm(forms.ModelForm):
                 }
             ),
         }
+
+
+class DeleteCpuModelForm(forms.ModelForm):
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['disabled'] = 'disabled'
+    class Meta:
+
+        model = Cpu
+        fields = [
+            'manufacturer',
+            'model_name',
+            'cpu_architecture',
+            'cpu_socket',
+            'total_cores',
+            'p_core_base_clock',
+            'p_core_boost_clock',
+            'cpu_level_3_cache',
+            'cpu_release_date',
+        ]
+        labels = {
+            'cpu_level_3_cache': 'L3 Cache (MB)',
+            'p_core_base_clock': 'P Cores Base Clock (GHz)',
+            'p_core_boost_clock': 'P Cores Boost Clock (GHz)',
+        }

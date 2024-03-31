@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>Components Library</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
 <h1>
     Components Library!!!
 </h1>
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-4"><a href="{% url 'cpu-list' %}">Processors</a></div>
     <div class="col-4"><a href="#">Motherboards</a></div>
     <div class="col-4"><a href="#">Graphics Cards</a></div>
@@ -23,5 +25,16 @@
 
 <div class="row">
     <div class="col-12"><a href="#">Computer Cases</a></div>
+</div> -->
+
+<div class="library">
+    <a href="{% url 'cpu-list' %}" class="lib-cpu">Processors</a>
+    <a href="#" class="lib-mobo">Motherboards</a>
+    <a href="#" class="lib-gpu">Graphics Cards</a>
+    <a href="#" class="lib-ram">RAM Modules</a>
+    <a href="#" class="lib-ssd">Internal Storage</a>
+    <a href="#" class="lib-psu">Power Supplies</a>
+    <a href="#" class="lib-case">Computer Cases</a>
+    
 </div>
 {% endblock %}

@@ -22,7 +22,9 @@
     <h2>CPU Entries Under Review</h2>
     {% for cpu in not_verified %}
         <p>{{ cpu.manufacturer }} {{ cpu.model_name }} - {{ cpu.total_cores }} cores @ {{ cpu.p_core_base_clock }} - {{ cpu.p_core_boost_clock }} GHz
-            <a href="{% url 'cpu-details' cpu_id=cpu.pk %}">details</a>
+            <button><a href="{% url 'cpu-details' cpu_id=cpu.pk %}">details</a></button>
+            <button><a href="{% url 'cpu-edit' cpu_id=cpu.pk %}">Verify</a></button>
+            <button><a href="{% url 'cpu-delete' cpu_id=cpu.pk  %}">Delete</a></button>
         </p>
     {% endfor %}
 </div>

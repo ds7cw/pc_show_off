@@ -1,0 +1,66 @@
+.library {
+    display: grid;
+    text-align: center;
+    margin: 0 auto;
+
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    grid-template-areas: 
+    'lib-mobo lib-cpu lib-ram'
+    'lib-mobo lib-ssd lib-ram'
+    'lib-gpu lib-gpu lib-gpu'
+    'lib-psu lib-psu lib-case'
+    ;
+}
+
+.library > * {
+    background-color: #309fb7;
+    font-size: 3em;
+    padding: 30px;
+    color: white;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.library > *:hover {
+    /* background-color: #4bae50; */
+    background: linear-gradient(to right, #4CAF50, #2196F3);
+}
+
+.lib-cpu {
+    grid-area: lib-cpu;
+}
+
+.lib-gpu {
+    grid-area: lib-gpu;
+}
+
+.lib-mobo {
+    grid-area: lib-mobo;
+}
+
+.lib-ram {
+    grid-area: lib-ram;
+}
+
+.lib-ssd {
+    grid-area: lib-ssd;
+}
+
+.lib-psu {
+    grid-area: lib-psu;
+}
+
+.lib-case {
+    grid-area: lib-case;
+}
+/* .library a {
+    font-size: 3em;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 10px auto;
+    background-color: rgb(96, 139, 125);
+    display: inline-block;
+    width: 100%;
+    justify-content: center;
+} */

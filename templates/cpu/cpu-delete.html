@@ -8,4 +8,10 @@
 <h1>
     CPU Delete!!!
 </h1>
+<form action="{% url 'cpu-delete' cpu_id=cpu.pk %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Submit</button>
+</form>
 {% endblock %}
