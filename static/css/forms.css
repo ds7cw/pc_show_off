@@ -34,7 +34,7 @@ div.card {
     border: 1px solid #ccc;
 }
   
-.form-submit {
+.form-submit, .form-submit-delete {
     padding: 10px 20px;
     /* background-color: #333333; */
     background-color: #2196F3;
@@ -45,4 +45,8 @@ div.card {
     margin-top: 20px;
     width: 50%;
     margin: 20px 25%;
+}
+
+.form-submit-delete {
+    background-color: #e97070;
 }

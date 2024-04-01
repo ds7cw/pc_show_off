@@ -5,13 +5,15 @@
 {% endblock %}
 
 {% block main_content %}
-<h1>
-    CPU Delete!!!
-</h1>
-<form action="{% url 'cpu-delete' cpu_id=cpu.pk %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
+<div class="card">
+    <h2>
+        CPU Delete
+    </h2>
+    <form class="form-group" action="{% url 'cpu-delete' cpu_id=cpu.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-    <button type="submit">Submit</button>
-</form>
+        <button type="submit" class="form-submit-delete">Delete</button>
+    </form>
+</div>
 {% endblock %}
