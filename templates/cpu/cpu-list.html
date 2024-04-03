@@ -9,23 +9,27 @@
     CPU List!!!
 </h1>
 <p>Can't seem to find what you're looking for? Help us improve the content of our library by adding a <a href="{% url 'cpu-create' %}">new component</a>.</p>
-<div>
+<div class="verified">
     <h2>Verified CPU's</h2>
     {% for cpu in verified %}
-        <p>{{ cpu.manufacturer }} {{ cpu.model_name }} - {{ cpu.total_cores }} cores @ {{ cpu.p_core_base_clock }} - {{ cpu.p_core_boost_clock }} GHz
-            <a href="{% url 'cpu-details' cpu_id=cpu.pk %}">details</a>
-        </p>
+        <div class="list-item">
+            <h4>{{ cpu.model_name }}</h4>
+            <hr>
+            <p>{{ cpu.total_cores }} cores @ {{ cpu.p_core_base_clock }} - {{ cpu.p_core_boost_clock }} GHz</p>
+            <button><a href="{% url 'cpu-details' cpu_id=cpu.pk %}">Details</a></button>
+        </div>
     {% endfor %}
 </div>
 
-<div>
+<div class="not-verified">
     <h2>CPU Entries Under Review</h2>
     {% for cpu in not_verified %}
-        <p>{{ cpu.manufacturer }} {{ cpu.model_name }} - {{ cpu.total_cores }} cores @ {{ cpu.p_core_base_clock }} - {{ cpu.p_core_boost_clock }} GHz
-            <button><a href="{% url 'cpu-details' cpu_id=cpu.pk %}">details</a></button>
-            <button><a href="{% url 'cpu-edit' cpu_id=cpu.pk %}">Verify</a></button>
-            <button><a href="{% url 'cpu-delete' cpu_id=cpu.pk  %}">Delete</a></button>
-        </p>
+        <div class="list-item">
+            <h4>{{ cpu.model_name }}</h4>
+            <hr>
+            <p>{{ cpu.total_cores }} cores @ {{ cpu.p_core_base_clock }} - {{ cpu.p_core_boost_clock }} GHz</p>
+            <button><a href="{% url 'cpu-details' cpu_id=cpu.pk %}">Details</a></button>
+        </div>
     {% endfor %}
 </div>
 {% endblock %}

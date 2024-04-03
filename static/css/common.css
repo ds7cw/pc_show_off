@@ -73,10 +73,15 @@ footer {
     width: 80%;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .footer a {
     text-decoration: none;
     color: white;
+    margin: 0 25px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
 }

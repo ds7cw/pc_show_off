@@ -1,0 +1,45 @@
+.verified .list-item, .not-verified .list-item {
+    border-radius: 5px;
+    border-color: gray;
+    background-color: rgb(230, 230, 230);
+    display: inline-block;
+    margin: 10px;
+    padding: 10px;
+    width: 240px;
+}
+
+.list-item p {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.list-item a {
+    width: 30%;
+    margin: 0 auto;
+    display: block;
+    margin-top: 5px
+}
+
+.list-item h4 {
+    margin: 0 auto;
+    width: 55%; 
+}
+
+.list-item button {
+    background-color: rgb(170, 170, 170);
+    width: 40%;
+    border-radius: 5px;
+    margin: 5px auto;
+    display: block;
+}
+
+.list-item button > a {
+    text-decoration: none;
+    color: white;
+    margin: auto auto;
+    display: inline;
+}
+
+.list-item button > a:hover {
+    text-decoration: underline;
+}

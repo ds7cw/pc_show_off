@@ -75,4 +75,10 @@
         <p>Source: <a href="https://www.arm.com/glossary/cpu">arm</a></p>
     </div>
 </div>
+{% if request.user.is_staff %}
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'cpu-edit' cpu_id=cpu.pk %}">Verify</a></button>
+        <button><a href="{% url 'cpu-delete' cpu_id=cpu.pk  %}">Delete</a></button>
+    </div>
+{% endif %}
 {% endblock %}
