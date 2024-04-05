@@ -8,4 +8,28 @@
 <h1>
     Motherboard List!!!
 </h1>
+<p>Can't seem to find what you're looking for? Help us improve the content of our library by adding a <a href="{% url 'mobo-create' %}">new component</a>.</p>
+<div class="verified">
+    <h2>Verified Motherboards</h2>
+    {% for obj in verified %}
+        <div class="list-item">
+            <h4>{{ obj.manufacturer }} {{ obj.chipset }}</h4>
+            <hr>
+            <p>{{ obj.model_name }}</p>
+            <button><a href="{% url 'mobo-details' mobo_id=obj.pk %}">Details</a></button>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="not-verified">
+    <h2>Motherboard Entries Under Review</h2>
+    {% for obj in not_verified %}
+        <div class="list-item">
+            <h4>{{ obj.manufacturer }} {{ obj.chipset }}</h4>
+            <hr>
+            <p>{{ obj.model_name }}</p>
+            <button><a href="{% url 'mobo-details' mobo_id=obj.pk %}">Details</a></button>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

@@ -1,11 +1,107 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>Motherboard Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    Motherboard Details!!!
-</h1>
+<div class="row">
+    <h2 class="head">
+        {{ object.model_name }} Details:
+    </h2>
+    <div class="col-details">
+        <h2>Essentials</h2>
+        <hr>
+        <div>
+            <span>Manufacturer: </span>
+            <span>{{ object.manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Series: </span>
+            <span>{{ object.series }}</span>
+        </div>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.model_name }}</span>
+        </div>
+
+        <h2>CPU Specifications</h2>
+        <hr>
+        
+        <div>
+            <span>Platform: </span>
+            <span>{{ object.platform }}</span>
+        </div>
+
+        <div>
+            <span>CPU Socket: </span>
+            <span>{{ object.cpu_socket }}</span>
+        </div>
+
+        <div>
+            <span>Chipset: </span>
+            <span>{{ object.chipset }}</span>
+        </div>
+
+        <h2>Memory Specification</h2>
+        <hr>
+        <div>
+            <span>Memory Type: </span>
+            <span>{{ object.memory_type }}</span>
+        </div>
+
+        <div>
+            <span>Memory Slots: </span>
+            <span>{{ object.memory_slots }}</span>
+        </div>
+
+        <div>
+            <span>Maximum RAM: </span>
+            <span>{{ object.maximum_ram }} GB</span>
+        </div>
+        
+        <h2>Size & Interface: </h2>
+        <hr>
+        <div>
+            <span>Form Factor: </span>
+            <span>{{ object.atx_factor }}</span>
+        </div>
+
+        <div>
+            <span>GPU Interface: </span>
+            <span>{{ object.gpu_interface }}</span>
+        </div>
+    </div>
+
+    <div class="col-definition">
+        <h2>How does a motherboard work?</h2>
+        <hr>
+        <p>The official motherboard definition is that it’s the main printed circuit board within a computer, which means it’s the primary piece of circuitry that all of the other pieces plug into to create a cohesive whole.</p>
+        <p>The motherboard is the backbone that ties the computer’s components together at one spot and allows them to talk to each other. Without it, none of the computer pieces, such as the CPU, GPU, or hard drive, could interact. Total motherboard functionality is necessary for a computer to work well. If your motherboard is on the fritz, expect some big problems.</p>
+
+        <h2>Common motherboard parts</h2>
+        <p>While you don’t need to peek inside your computer to look at the motherboard on a regular basis, it’s smart to familiarize yourself with the ins and outs of this essential tool. The motherboard will look like a piece of flat cardboard or plastic with lots of metal designs and wires on and around it.</p>
+        <p>Parts of a motherboard include power and data connectors, capacitors, heat sinks, and fans. You may also see screw holes for adding new parts or for anchoring it into a device. Look for expansion slots that may be present for adding on other components later as well.</p>
+        <p>The pieces that plug into it, either with wires or directly, are often called motherboard components. These include:</p>
+        <ul>
+            <li>Optical drives, such as DVD and CD-ROM</li>
+            <li>Video cards and GPUs</li>
+            <li>Sound cards</li>
+            <li>Hard drives (SSD or HDD)</li>
+            <li>Processors (CPU)</li>
+            <li>Memory sticks (RAM)</li>
+        </ul>
+        <p>Source: <a href="https://www.hp.com/us-en/shop/tech-takes/what-does-a-motherboard-do">HP</a></p>
+    </div>
+</div>
+{% if request.user.is_staff %}
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'mobo-edit' mobo_id=object.pk %}">Verify</a></button>
+        <button><a href="{% url 'mobo-delete' mobo_id=object.pk %}">Delete</a></button>
+    </div>
+{% endif %}
 {% endblock %}
