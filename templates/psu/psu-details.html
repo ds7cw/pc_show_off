@@ -1,11 +1,98 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>Power Supply Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    Power Supply Details!!!
-</h1>
+<div class="row">
+    <h2 class="head">
+        {{ object.model_name }} Details:
+    </h2>
+    <div class="col-details">
+        <h2>Essentials</h2>
+        <hr>
+        <div>
+            <span>Manufacturer: </span>
+            <span>{{ object.manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.model_name }}</span>
+        </div>
+
+        <h2>Power Specification</h2>
+        <hr>
+        
+        <div>
+            <span>Wattage: </span>
+            <span>{{ object.wattage }}W</span>
+        </div>
+
+        <div>
+            <span>80 Plus Rating: </span>
+            <span>{{ object.plus_rating }}</span>
+        </div>
+
+        <h2>Dimensions</h2>
+        <hr>
+        <div>
+            <span>Form Factor: </span>
+            <span>{{ object.form_factor }}</span>
+        </div>
+
+        <div>
+            <span>Height: </span>
+            <span>{{ object.height }} mm</span>
+        </div>
+
+        <div>
+            <span>Width: </span>
+            <span>{{ object.width }} mm</span>
+        </div>
+
+        <div>
+            <span>Depth: </span>
+            <span>{{ object.depth }} mm</span>
+        </div>
+
+        <div>
+            <span>Fan Size: </span>
+            <span>{{ object.depth }} mm</span>
+        </div>
+        
+        <h2>Other</h2>
+        <hr>
+        <div>
+            <span>Warranty: </span>
+            <span>{{ object.warranty }}</span>
+        </div>
+
+    </div>
+
+    <div class="col-definition">
+        <h2>How Many Watts?</h2>
+        <hr>
+        <p>As a general rule, it’s better to err on the side of higher wattage rather than trying to match your needs exactly. If you’ve calculated that your system is going to use 500 watts (a common number for a straightforward gaming build), choosing a PSU with 600 or 650-watt output could be a good option, as it will give you some overhead to work with, and also allow for potential future upgrades.</p>
+        <p>Keep this in mind when considering higher wattage PSUs: a 750-watt power supply does not consume 750 watts by default. If your system is drawing 500 watts, your power supply will supply 500 watts, regardless of maximum capable output.</p>
+
+        <h2>Protection</h2>
+        <hr>
+        <p>The power supply and the motherboard are the only PC components that directly connect to almost every other piece of hardware in your system. Because of the unique position of the PSU in the PC’s layout, making sure it has built-in protection can help keep the rest of your hardware safe as well.</p>
+
+        <h2>Efficiency</h2>
+        <hr>
+        <p>Because efficiency is such an important consideration, there’s a relatively straightforward independent rating system in place. You might have noticed the “80 Plus” rating on many power supplies, often listed alongside a precious metal. To receive this rating, a power supply must be at least 80 percent efficient, meaning that a maximum of 20 percent of power is lost as heat.</p>
+        <p>Source: <a href="https://www.intel.com/content/www/us/en/gaming/resources/power-supply.html">intel</a></p>
+    </div>
+</div>
+{% if request.user.is_staff %}
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'psu-edit' psu_id=object.pk %}">Verify</a></button>
+        <button><a href="{% url 'psu-delete' psu_id=object.pk %}">Delete</a></button>
+    </div>
+{% endif %}
 {% endblock %}
