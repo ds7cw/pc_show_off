@@ -1,11 +1,113 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-    <title>GPU Details</title>
+    <title>GPU Supply Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    GPU Details!!!
-</h1>
+<div class="row">
+    <h2 class="head">
+        {{ object.short_model_name }} Details:
+    </h2>
+    <div class="col-details">
+        <h2>Chip Manufacturer Details</h2>
+        <hr>
+        <div>
+            <span>Chip Manufacturer: </span>
+            <span>{{ object.manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Manufacturer Model ID: </span>
+            <span>{{ object.model_name }}</span>
+        </div>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.short_model_name }}</span>
+        </div>
+        
+        <h2>GPU Manufacturer Details</h2>
+        <hr>
+        <div>
+            <span>GPU Manufacturer: </span>
+            <span>{{ object.gpu_manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Series: </span>
+            <span>{{ object.series }}</span>
+        </div>
+
+        <h2>GPU Specification</h2>
+        <hr>
+        
+        <div>
+            <span>Chip Architecture: </span>
+            <span>{{ object.chip_architecture }}</span>
+        </div>
+
+        <div>
+            <span>Virtual Memory: </span>
+            <span>{{ object.v_ram }} GB</span>
+        </div>
+
+        <div>
+            <span>Stream Processors (Shaders): </span>
+            <span>{{ object.stream_processors }}</span>
+        </div>
+
+        <h2>Interface Specification</h2>
+        <hr>
+        <div>
+            <span>Memory Bus: </span>
+            <span>{{ object.memory_bus }}bit</span>
+        </div>
+
+        <div>
+            <span>GPU Interface: </span>
+            <span>{{ object.gpu_interface }}</span>
+        </div>
+        
+        <h2>Other</h2>
+        <hr>
+        <div>
+            <span>Minimum Recommended PSU: </span>
+            <span>{{ object.recommended_psu }}W</span>
+        </div>
+
+        <div>
+            <span>Release Date: </span>
+            <span>{{ object.gpu_release_date }}</span>
+        </div>
+
+    </div>
+
+    <div class="col-definition">
+        <h2>What is a graphics card?</h2>
+        <hr>
+        <p>A graphics card, also known as a video card or GPU, is a hardware component responsible for rendering and displaying images, videos, and animations on your computer monitor. The GPU works with the CPU to process and output visual data.</p>
+        
+        <h2>Why do I need a graphics card?</h2>
+        <hr>
+        <p>If you use your computer for tasks such as gaming, video editing, three-dimensional (3D) modeling, or other graphic-intensive activities, a dedicated graphics card is essential. It offloads the graphical processing from the CPU, resulting in improved performance and smoother visuals.</p>
+
+        <h2>Can I use multiple GPUs on my PC?</h2>
+        <hr>
+        <p>Yes, it is possible to use multiple GPUs in a PC setup. However, not all applications and games support multiple graphics cards, so it's important to research compatibility before investing in multiple GPUs. Additionally, using multiple GPUs requires a compatible motherboard and power supply with enough peripheral component interconnect express (PCIe) slots and power connectors.</p>
+
+        <h2>How much VRAM do I need?</h2>
+        <hr>
+        <p>The amount of VRAM you need depends on your specific requirements. For most gaming purposes, 4GB to 8GB of VRAM is sufficient for playing games at 1080p resolution. If you plan to play games at higher resolutions or use applications that require extensive graphics processing, such as 3D modelling or video editing, consider opting for a GPU with 8GB or more of VRAM.</p>
+        <p>Source: <a href="https://www.lenovo.com/us/en/glossary/what-is-graphics-card/">lenovo</a></p>
+    </div>
+</div>
+{% if request.user.is_staff %}
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'gpu-edit' gpu_id=object.pk %}">Verify</a></button>
+        <button><a href="{% url 'gpu-delete' gpu_id=object.pk %}">Delete</a></button>
+    </div>
+{% endif %}
 {% endblock %}

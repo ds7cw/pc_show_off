@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>GPU Delete</title>
 {% endblock %}
 
 {% block main_content %}
-<h1>
-    GPU Delete!!!
-</h1>
+<div class="card">
+    <h2>
+        GPU Delete
+    </h2>
+    <form class="form-group" action="{% url 'gpu-delete' gpu_id=object.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="form-submit-delete">Delete</button>
+    </form>
+</div>
 {% endblock %}
