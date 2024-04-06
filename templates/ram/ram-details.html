@@ -1,11 +1,107 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>RAM Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    RAM Details!!!
-</h1>
+<div class="row">
+    <h2 class="head">
+        {{ object.manufacturer }} {{ object.series }}
+         {{ object.total_ram }}-{{ object.max_frequency }} Details:
+    </h2>
+    <div class="col-details">
+        <h2>Manufacturer Details</h2>
+        <hr>
+        <div>
+            <span>Manufacturer: </span>
+            <span>{{ object.manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Series: </span>
+            <span>{{ object.series }}</span>
+        </div>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.model_name }}</span>
+        </div>
+
+        <h2>RAM Specification</h2>
+        <hr>
+        
+        <div>
+            <span>Total Ram Capacity: </span>
+            <span>{{ object.total_ram }} GB</span>
+        </div>
+
+        <div>
+            <span>Tested Speed: </span>
+            <span>{{ object.max_frequency }} MHz</span>
+        </div>
+
+        <div>
+            <span>Default Speed: </span>
+            <span>{{ object.default_frequency }} MHz</span>
+        </div>
+
+        <div>
+            <span>CAS Latency: </span>
+            <span>{{ object.cas_latency }}</span>
+        </div>
+
+        <div>
+            <span>Number of RAM Modules: </span>
+            <span>{{ object.number_of_sticks }}</span>
+        </div>
+
+        <h2>Aesthetics</h2>
+        <hr>
+        <div>
+            <span>Colour: </span>
+            <span>{{ object.colour }}</span>
+        </div>
+
+        <div>
+            <span>RGB Lighting: </span>
+            <span>{{ object.rgb }}</span>
+        </div>
+        
+        <h2>Other</h2>
+        <hr>
+        <div>
+            <span>Warranty: </span>
+            <span>{{ object.warranty }}</span>
+        </div>
+
+    </div>
+
+    <div class="col-definition">
+        <h2>What is RAM?</h2>
+        <hr>
+        <p>RAM (which stands for Random Access Memory) is the familiar acronym for random access memory, which is the temporary storage in your computer that gives applications a place to store and access data on a short-term basis. Having more RAM means that more data can be accessed and read almost instantly, as opposed to being written on your hard drive</p>
+        
+        <h2>What does RAM do?</h2>
+        <hr>
+        <p>RAM allows your computer to perform most of its everyday tasks, such as loading applications, browsing the internet, editing a spreadsheet, or experiencing the latest game. Memory also allows you to switch quickly among these tasks while also remembering where you are in each task.</p>
+        <p>In a way, memory is like the top of your desk. It allows you to work on various projects at once. The larger your desk, the more papers, folders, and tasks you can have out at one time.</p>
+
+        <h2>Why is RAM important?</h2>
+        <hr>
+        <p>If your system doesn’t have enough RAM, it can be slow and sluggish, especially when you’re trying to multitask or having several programs or apps open at the same time.</p>
+        <p>To prevent users from installing incompatible memory, modules are physically different for each memory technology generation (DDR4 and DDR5).</p>
+        <p>RAM performance is all about the relationship between speed and latency. At a basic level, latency is the time delay between when a command is entered and when the data is available. Understanding the speed and latency of RAM will help you better choose the correct RAM to install in your system based on your needs.</p>
+
+        <p>Source: <a href="https://uk.crucial.com/articles/about-memory/support-what-does-computer-memory-do">crucial</a></p>
+    </div>
+</div>
+{% if request.user.is_staff %}
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'ram-edit' ram_id=object.pk %}">Verify</a></button>
+        <button><a href="{% url 'ram-delete' ram_id=object.pk %}">Delete</a></button>
+    </div>
+{% endif %}
 {% endblock %}
