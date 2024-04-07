@@ -1,11 +1,100 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>Internal Storage Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    Internal Storage Details!!!
-</h1>
+<div class="row">
+    <h2 class="head">
+        {{ object.series }} {{ object.total_storage }}GB Details:
+    </h2>
+    <div class="col-details">
+        <h2>Manufacturer Details</h2>
+        <hr>
+        <div>
+            <span>Manufacturer: </span>
+            <span>{{ object.manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Series: </span>
+            <span>{{ object.series }}</span>
+        </div>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.model_name }}</span>
+        </div>
+
+        <h2>Interfaces</h2>
+        <hr>
+        
+        <div>
+            <span>Form Factor: </span>
+            <span>{{ object.form_factor }}</span>
+        </div>
+        
+        <div>
+            <span>Interface: </span>
+            <span>{{ object.interface }}</span>
+        </div>
+
+        <div>
+            <span>PCIe Interface: </span>
+            <span>{{ object.pcie_interface }}</span>
+        </div>
+
+        <h2>Storage Specification</h2>
+        <hr>
+
+        <div>
+            <span>Storage Capacity: </span>
+            <span>{{ object.total_storage }}GB</span>
+        </div>
+
+        <div>
+            <span>Read Speed: </span>
+            <span>{{ object.read_speed }} MB/s</span>
+        </div>
+        
+        <div>
+            <span>Write Speed: </span>
+            <span>{{ object.write_speed }} MB/s</span>
+        </div>
+        
+        <h2>Dimensions</h2>
+        <hr>
+        <div>
+            <span>Module Length: </span>
+            <span>{{ object.length }} mm</span>
+        </div>
+
+    </div>
+
+    <div class="col-definition">
+        <h2>What Is a Solid-State Drive (SSD)?</h2>
+        <hr>
+        <p>A solid-state drive (SSD) is a new generation of storage device used in computers. SSDs store data using flash-based memory, which is much faster than the traditional hard disks they've come to replace.</p>
+        
+        <h2>What do solid-state drives do?</h2>
+        <hr>
+        <p>SSDs store data permanently inside an integrated circuit, typically using flash memory. The flash memory inside an SSD means data is written, transferred, and erased electronically and silently — SSDs don’t have the moving parts found inside mechanical hard-disk drives (HDDs). Without moving parts, SSDs are fast and quiet, but they have a high price tag compared to HDDs.</p>
+        
+        <h2>Different types of SSDs</h2>
+        <hr>
+        <p><b>PCIe and NVMe SSDs:</b> PCI Express (PCIe) is normally used to connect graphics cards, network cards, or other high-performance hardware. This interface gives you high bandwidth and low latency, making it ideal when you need super fast communication between an SSD and your CPU/RAM. SSDs that use the PCIe connection type are based on the Nonvolatile Memory Express standard (NVMe), which boasts up to 32 Gbps of raw throughput and runs at up to 7 Gbps.</p>
+        <p><b>mSATA III, SATA III, and traditional SSDs:</b> Serial Advanced Technology Attachment (SATA) is an older SSD interface designed specifically for storage, with speeds up to 6 Gbps. SATA is slowly being phased out in favor of NVMe, which is significantly faster. But older PCs and laptops with HDDs would still benefit from an upgrade to a SATA-based SSD.</p>
+        
+        <p>Source: <a href="https://www.avast.com/c-what-is-ssd">avast</a></p>
+    </div>
+</div>
+{% if request.user.is_staff %}
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'storage-edit' storage_id=object.pk %}">Verify</a></button>
+        <button><a href="{% url 'storage-delete' storage_id=object.pk %}">Delete</a></button>
+    </div>
+{% endif %}
 {% endblock %}

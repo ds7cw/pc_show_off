@@ -11,30 +11,13 @@
     Components Library!!!
 </h1>
 
-<!-- <div class="row">
-    <div class="col-4"><a href="{% url 'cpu-list' %}">Processors</a></div>
-    <div class="col-4"><a href="#">Motherboards</a></div>
-    <div class="col-4"><a href="#">Graphics Cards</a></div>
-</div>
-
-<div class="row">
-    <div class="col-4"><a href="#">RAM Modules</a></div>
-    <div class="col-4"><a href="#">Internal Storage</a></div>
-    <div class="col-4"><a href="#">Power Supplies</a></div>
-</div>
-
-<div class="row">
-    <div class="col-12"><a href="#">Computer Cases</a></div>
-</div> -->
-
 <div class="library">
     <a href="{% url 'cpu-list' %}" class="lib-cpu">Processors</a>
     <a href="{% url 'mobo-list' %}" class="lib-mobo">Motherboards</a>
     <a href="{% url 'gpu-list' %}" class="lib-gpu">Graphics Cards</a>
     <a href="{% url 'ram-list' %}" class="lib-ram">RAM Modules</a>
-    <a href="#" class="lib-ssd">Internal Storage</a>
+    <a href="{% url 'storage-list' %}" class="lib-ssd">Internal Storage</a>
     <a href="{% url 'psu-list' %}" class="lib-psu">Power Supplies</a>
     <a href="#" class="lib-case">Computer Cases</a>
-    
 </div>
 {% endblock %}

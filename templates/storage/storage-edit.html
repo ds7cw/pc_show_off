@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>Internal Storage Edit</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    Internal Storage Edit!!!
-</h1>
+<div class="card">
+    <h2>
+        Internal Storage Edit
+    </h2>
+    <form class="form-group" action="{% url 'storage-edit' storage_id=object.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="form-submit">
+            Verify
+        </button>
+    </form>
+</div>
 {% endblock %}
