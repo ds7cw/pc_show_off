@@ -1,11 +1,36 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-    <title>Case List</title>
+    <title>PC Case List</title>
 {% endblock %}
 
 {% block main_content %}
 <h1>
-    Case List!!!
+    PC Case List!!!
 </h1>
+<p>Can't seem to find what you're looking for? Help us improve the content of our library by adding a <a href="{% url 'case-create' %}">new component</a>.</p>
+<div class="verified">
+    <h2>Verified PC Cases</h2>
+    {% for obj in verified %}
+        <div class="list-item">
+            <h4>{{ obj.series }} {{ obj.colour }}</h4>
+            <hr>
+            <p>{{ obj.manufacturer }} {{ obj.tower_size }}</p>
+            <button><a href="{% url 'case-details' case_id=obj.pk %}">Details</a></button>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="not-verified">
+    <h2>PC Case Entries Under Review</h2>
+    {% for obj in not_verified %}
+        <div class="list-item">
+            <h4>{{ obj.series }} {{ obj.colour }}</h4>
+            <hr>
+            <p>{{ obj.manufacturer }} {{ obj.tower_size }}</p>
+            <button><a href="{% url 'case-details' case_id=obj.pk %}">Details</a></button>
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}

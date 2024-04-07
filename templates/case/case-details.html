@@ -1,11 +1,131 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-    <title>Case Details</title>
+    <title>PC Case Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    Case Details!!!
-</h1>
+<div class="row">
+    <h2 class="head">
+        {{ object.manufacturer }} {{ object.series }} Details:
+    </h2>
+    <div class="col-details">
+        <h2>Manufacturer Details</h2>
+        <hr>
+        <div>
+            <span>Manufacturer: </span>
+            <span>{{ object.manufacturer }}</span>
+        </div>
+
+        <div>
+            <span>Series: </span>
+            <span>{{ object.series }}</span>
+        </div>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.model_name }}</span>
+        </div>
+
+        <h2>Dimensions</h2>
+        <hr>
+        
+        <div>
+            <span>Tower Size: </span>
+            <span>{{ object.tower_size }}</span>
+        </div>
+
+        <div>
+            <span>Form Factor: </span>
+            <span>Up to {{ object.form_factor }}</span>
+        </div>
+        
+        <div>
+            <span>Width: </span>
+            <span>{{ object.width }} mm</span>
+        </div>
+
+        <div>
+            <span>Height: </span>
+            <span>{{ object.height }} mm</span>
+        </div>
+
+        <div>
+            <span>Depth: </span>
+            <span>{{ object.depth }} mm</span>
+        </div>
+
+        <h2>Internal Clearance</h2>
+        <hr>
+
+        <div>
+            <span>Maximum PSU Length: </span>
+            <span>{{ object.psu_max_len }} mm</span>
+        </div>
+
+        <div>
+            <span>Maximum GPU Length: </span>
+            <span>{{ object.gpu_max_len }} mm</span>
+        </div>
+
+        <h2>Fan Configuration</h2>
+        <hr>
+
+        <div>
+            <span>Front: </span>
+            <span>{{ object.front_fans }} fan(s)</span>
+        </div>
+
+        <div>
+            <span>Top: </span>
+            <span>{{ object.top_fans }} fan(s)</span>
+        </div>
+
+        <div>
+            <span>Bottom: </span>
+            <span>{{ object.bottom_fans }} fan(s)</span>
+        </div>
+        
+        <div>
+            <span>Rear: </span>
+            <span>{{ object.rear_fans }} fan(s)</span>
+        </div>
+
+        <h2>Aesthetics</h2>
+        <hr>
+        <div>
+            <span>Colour: </span>
+            <span>{{ object.colour }}</span>
+        </div>
+
+    </div>
+
+    <div class="col-definition">
+        <h2>Why the right PC case is important?</h2>
+        <hr>
+        <p>It’s important to choose the right case for your PC because components come in a wide variety of sizes, and also have their own cooling requirements.</p>
+        
+        <h2>Motherboard Compatibility</h2>
+        <hr>
+        <p>All you need to do is ensure that the case and motherboard are both the same standard. The most common standard for mid-tower and full tower size PCs is ATX. The other standards are Micro-ATX and Mini-ITX, both of which are smaller than ATX, and finally the enormous E-ATX SSI-EEB standard.</p>
+        
+        <h2>Air Cooling</h2>
+        <hr>
+        <p>If you're building an entry-level PC a single exhaust fan at the back or top of the case is normally sufficient, but high-end PCs will require more fans, with some sucking cool air into the case and others exhausting hot air out of the case. If you're intending on using a particularly large CPU heatsink then make sure the case has sufficient space to house the cooler.</p>
+        
+        <h2>Quiet Cases</h2>
+        <hr>
+        <p>The quietest cases are fitted a layer of foam on the outer panels that absorbs sound vibrations and plates to cover up unneeded fan mounts. Just beware that you need to strike the right balance between making your PC as quiet as possible while ensuring it's adequately cooled, so it can’t be completely sealed box.</p>
+        
+        <p>Source: <a href="https://www.scan.co.uk/buying-guides/cases">scan</a></p>
+    </div>
+</div>
+{% if request.user.is_staff %}
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'case-edit' case_id=object.pk %}">Verify</a></button>
+        <button><a href="{% url 'case-delete' case_id=object.pk %}">Delete</a></button>
+    </div>
+{% endif %}
 {% endblock %}

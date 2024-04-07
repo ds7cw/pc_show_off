@@ -1,11 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
-    <title>Case Edit</title>
+    <title>PC Case Edit</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    Case Edit!!!
-</h1>
+<div class="card">
+    <h2>
+        PC Case Edit
+    </h2>
+    <form class="form-group" action="{% url 'case-edit' case_id=object.pk %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="form-submit">
+            Verify
+        </button>
+    </form>
+</div>
 {% endblock %}
