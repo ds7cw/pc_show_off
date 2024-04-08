@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>PC List</title>
+{% endblock %}
+
+{% block main_content %}
+<h1>
+    PC List!!!
+</h1>
+<div>
+    {% if objects %}
+        <table>
+            <tr>
+                <th>PC Name</th>
+                <th>CPU</th>
+                <th>GPU</th>
+                <th>Motherboard</th>
+                <th>RAM</th>
+                <th>PSU</th>
+                <th>SSD</th>
+                <th>Cost $</th>
+            </tr>
+                {% for obj in objects %}
+                    <tr>
+                        <td><a href="{% url 'pc-details' pc_name=obj.pc_name %}">{{ obj.pc_name }}</td>
+                        <td>{{ obj.cpu_part.model_name }}</td>
+                        <td>{{ obj.gpu_part.short_model_name }}</td>
+                        <td>{{ obj.mobo_part.manufacturer }} {{ obj.mobo_part.chipset }}</td>
+                        <td>{{ obj.ram_part.total_ram }}GB {{ obj.ram_part.memory_type }}</td>
+                        <td>{{ obj.psu_part.wattage }}W</td>
+                        <td>{{ obj.storage_part.total_storage }}GB</td>
+                        <td>{{obj.approx_cost|default:'-' }}</td>
+                    </tr>
+                {% endfor %}
+        </table>
+    {% else %}
+        <p>It's feels a bit lonely here. Do you have a PC you'd like to <a href="{% url 'pc-create' %}">add</a>?</p>
+    {% endif %}
+</div>
+
+</div>
+{% endblock %}

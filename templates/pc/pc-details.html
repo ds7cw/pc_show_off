@@ -1,11 +1,145 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>PC Details</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
-<h1>
-    PC Details!!!
-</h1>
+<div class="row">
+    <h2 class="head-pc">
+        {{ object.pc_name }} Details:
+    </h2>
+    <div class="col-details">
+        <h2>Owner Details</h2>
+        <hr>
+        <div>
+            <span>Username: </span>
+            <span>{{ object.owner }}</span>
+        </div>
+
+        <h2>CPU</h2>
+        <hr>
+        
+        <div>
+            <span>Model: </span>
+            <span>{{ object.cpu_part.manufacturer }} <a href="{% url 'cpu-details' cpu_id=object.cpu_part.pk %}">{{ object.cpu_part.model_name }}</a></span>
+        </div>
+
+        <div>
+            <span>CPU Specification: </span>
+            <span>{{ object.cpu_part.total_cores }} Cores @ {{ object.cpu_part.p_core_base_clock|floatformat:2 }} - {{ object.cpu_part.p_core_boost_clock|floatformat:2 }} GHz</span>
+        </div>
+
+        <h2>GPU</h2>
+        <hr>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.gpu_part.manufacturer }} <a href="{% url 'gpu-details' gpu_id=object.gpu_part.pk %}">{{object.gpu_part.gpu_manufacturer}} {{ object.gpu_part.short_model_name }} {{object.gpu_part.series}}</a></span>
+        </div>
+
+        <div>
+            <span>GPU Specification: </span>
+            <span>{{ object.gpu_part.v_ram }}GB, {{ object.gpu_part.stream_processors }} Cores, {{ object.gpu_part.memory_bus }} bit {{ object.gpu_part.gpu_interface }}</ span>
+        </div>
+
+        <h2>Motherboard</h2>
+        <hr>
+
+        <div>
+            <span>Model: </span>
+            <span>{{ object.mobo_part.manufacturer }} <a href="{% url 'mobo-details' mobo_id=object.mobo_part.pk %}">{{ object.mobo_part.model_name }}</a></span>
+        </div>
+
+        <div>
+            <span>Motherboard Specification: </span>
+            <span>{{ object.mobo_part.platform }} {{ object.mobo_part.cpu_socket }} {{ object.mobo_part.memory_type }} {{ object.mobo_part.atx_factor }} System</span>
+        </div>
+
+        <h2>RAM</h2>
+        <hr>
+        <div>
+            <span>Model: </span>
+            <span><a href="{% url 'ram-details' ram_id=object.ram_part.pk %}">{{ object.ram_part.manufacturer }} {{ object.ram_part.series }}</a></span>
+        </div>
+
+        <div>
+            <span>RAM Specification: </span>
+            <span>{{ object.ram_part.total_ram }}GB {{ object.ram_part.memory_type }} @{{ object.ram_part.max_frequency }}MHz {{ object.ram_part.cas_latency }} CL</span>
+        </div>
+
+        <h2>PSU</h2>
+        <hr>
+        <div>
+            <span>Model: </span>
+            <span><a href="{% url 'ram-details' ram_id=object.ram_part.pk %}">{{ object.psu_part.manufacturer }} {{ object.psu_part.model_name }}</a></span>
+        </div>
+
+        <div>
+            <span>PSU Specification: </span>
+            <span>{{ object.psu_part.wattage }}W 80 Plus {{ object.psu_part.plus_rating }}</span>
+        </div>
+    </div>
+
+    <div class="col-definition">
+        <h2>Internal Storage</h2>
+        <hr>
+        <div>
+            <span>Model: </span>
+            <span><a href="{% url 'storage-details' storage_id=object.storage_part.pk %}">{{ object.storage_part.manufacturer }} {{ object.storage_part.series }} {{ object.storage_part.total_storage }}</a></span>
+        </div>
+
+        <div>
+            <span>SSD Specification: </span>
+            <span>{{ object.storage_part.total_storage }}GB {{ object.storage_part.interface }} {{ object.storage_part.form_factor }}</span>
+        </div>
+
+        <h2>PC Case</h2>
+        <hr>
+        <div>
+            <span>Model: </span>
+            <span><a href="{% url 'case-details' case_id=object.case_part.pk %}">{{ object.case_part.manufacturer }} {{ object.case_part.series }}</a></span>
+        </div>
+
+        <div>
+            <span>Case Specification: </span>
+            <span>{{ object.case_part.tower_size }} {{ object.case_part.form_factor }} {{ object.case_part.colour }}</span>
+        </div>
+
+        <div>
+            <span>Dimensions: </span>
+            <span>W{{ object.case_part.width }} x H{{ object.case_part.height }} x D{{ object.case_part.depth }} mm</span>
+        </div>
+
+        <div>
+            <span>Fan Configuration: </span>
+            <span>Front: {{ object.case_part.front_fans }} Top: {{ object.case_part.top_fans }} Bottom: {{ object.case_part.bottom_fans }} Rear: {{ object.case_part.rear_fans }}</span>
+        </div>
+
+        
+        <h2>Cost</h2>
+        <hr>
+        <div>
+            <span>Approximate Cost to Build PC: </span>
+            <span>${{ object.approx_cost|floatformat:2 }}</span>
+        </div>
+
+        
+        <h2>Additional Info</h2>
+        <hr>
+        <p>{{ object.description }}</p>
+    </div>
+</div>
+
+<div class="del-ver-buttons">
+    <button><a href="#">Comment</a></button>
+    <button><a href="#">Rate</a></button>
+        
+    {% if request.user.pk == object.owner.pk %}
+        <button><a href="{% url 'pc-edit' pc_name=object.pc_name %}">Edit</a></button>
+        <button><a href="{% url 'pc-delete' pc_name=object.pc_name %}">Delete</a></button>
+    {% endif %}
+</div>
 {% endblock %}
