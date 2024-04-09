@@ -4,14 +4,15 @@
 {% block title %}
     <title>GPU List</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
 <h1>
-    GPU List!!!
+    ~ GPU List ~
 </h1>
 <p>Can't seem to find what you're looking for? Help us improve the content of our library by adding a <a href="{% url 'gpu-create' %}">new component</a>.</p>
 <div class="verified">
-    <h2>Verified Power Supplies</h2>
+    <h2>Verified GPUs</h2>
     {% for obj in verified %}
         <div class="list-item">
             <h4>{{ obj.short_model_name }} {{ obj.v_ram }}GB</h4>
@@ -23,7 +24,7 @@
 </div>
 
 <div class="not-verified">
-    <h2>Power Supply Entries Under Review</h2>
+    <h2>GPU Entries Under Review</h2>
     {% for obj in not_verified %}
         <div class="list-item">
             <h4>{{ obj.short_model_name }} {{ obj.v_ram }}GB</h4>

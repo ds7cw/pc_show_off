@@ -4,10 +4,11 @@
 {% block title %}
     <title>My PC List</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
 <h1>
-    My PC List!!!
+    ~ My PC List ~
 </h1>
 <div>
     {% if objects %}

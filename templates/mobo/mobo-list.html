@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}
     <title>Motherboard List</title>
 {% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
 
 {% block main_content %}
 <h1>
-    Motherboard List!!!
+    ~ Motherboard List ~
 </h1>
 <p>Can't seem to find what you're looking for? Help us improve the content of our library by adding a <a href="{% url 'mobo-create' %}">new component</a>.</p>
 <div class="verified">
