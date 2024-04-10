@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, mixins as auth_mixins
 from django.contrib.admin.views.decorators import staff_member_required
+from django.views import generic as views
+from django.urls import reverse, reverse_lazy
 
 from .forms import CreateStorageModelForm, DeleteStorageModelForm
 from .models import Storage
@@ -42,22 +44,36 @@ def storage_edit(request, storage_id):
 
         if form.is_valid():
             updated_storage = form.save(commit=False)
-            updated_storage.is_verified = True
-            updated_storage.save()
             
-            obj.contributor.profile.contributions += 1
-            obj.contributor.profile.save()
+            if not updated_storage.is_verified:
+                updated_storage.is_verified = True
+                obj.contributor.profiles.contributions += 1
+                obj.contributor.profiles.save()
+    
+            updated_storage.save()        
             return redirect('storage-list')
 
     return render(request, 'storage/storage-edit.html',context)
 
 
-@login_required(login_url='login-page')
-def storage_details(request, storage_id):
-    object = Storage.objects.filter(pk=storage_id).first()
-    context = {'object': object}
+# @login_required(login_url='login-page')
+# def storage_details(request, storage_id):
+#     object = Storage.objects.filter(pk=storage_id).first()
+#     context = {'object': object}
 
-    return render(request, 'storage/storage-details.html', context)
+#     return render(request, 'storage/storage-details.html', context)
+
+
+class StorageDetailView(auth_mixins.LoginRequiredMixin, views.DetailView):
+
+    model = Storage
+    template_name = 'storage/storage-details.html'
+    context_object_name = 'object'
+    login_url = reverse_lazy('login-page')
+
+    def get_object(self, queryset=None):
+        storage_id = self.kwargs.get('storage_id')
+        return Storage.objects.filter(pk=storage_id).first()
 
 
 @staff_member_required(login_url='login-page')
@@ -73,12 +89,27 @@ def storage_delete(request, storage_id):
     return render(request, 'storage/storage-delete.html', context)
 
 
-@login_required(login_url='login-page')
-def storage_list(request):
-    all_objects = Storage.objects.all().order_by('total_storage', 'manufacturer', 'series')
-    verified_objects = all_objects.filter(is_verified=True)
-    not_verified_objects = all_objects.filter(is_verified=False)
+# @login_required(login_url='login-page')
+# def storage_list(request):
+#     all_objects = Storage.objects.all().order_by('total_storage', 'manufacturer', 'series')
+#     verified_objects = all_objects.filter(is_verified=True)
+#     not_verified_objects = all_objects.filter(is_verified=False)
     
-    context = {'verified': verified_objects, 'not_verified': not_verified_objects}
+#     context = {'verified': verified_objects, 'not_verified': not_verified_objects}
 
-    return render(request, 'storage/storage-list.html', context)
+#     return render(request, 'storage/storage-list.html', context)
+
+
+class StorageListView(auth_mixins.LoginRequiredMixin, views.ListView):
+
+    model = Storage
+    template_name = 'storage/storage-list.html'
+    login_url = reverse_lazy('login-page')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        all_objects = Storage.objects.all().order_by('total_storage', 'manufacturer', 'series')
+        context['verified'] = all_objects.filter(is_verified=True)
+        context['not_verified']  = all_objects.filter(is_verified=False)
+
+        return context

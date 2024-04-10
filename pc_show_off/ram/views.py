@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, mixins as auth_mixins
 from django.contrib.admin.views.decorators import staff_member_required
+from django.views import generic as views
+from django.urls import reverse, reverse_lazy
 
 from .forms import CreateRamModelForm, DeleteRamModelForm
 from .models import Ram
@@ -42,22 +44,36 @@ def ram_edit(request, ram_id):
 
         if form.is_valid():
             updated_ram = form.save(commit=False)
-            updated_ram.is_verified = True
+
+            if not updated_ram.is_verified:
+                updated_ram.is_verified = True        
+                obj.contributor.profiles.contributions += 1
+                obj.contributor.profiles.save()
+        
             updated_ram.save()
-            
-            obj.contributor.profile.contributions += 1
-            obj.contributor.profile.save()
             return redirect('ram-list')
 
     return render(request, 'ram/ram-edit.html',context)
 
 
-@login_required(login_url='login-page')
-def ram_details(request, ram_id):
-    object = Ram.objects.filter(pk=ram_id).first()
-    context = {'object': object}
+# @login_required(login_url='login-page')
+# def ram_details(request, ram_id):
+#     object = Ram.objects.filter(pk=ram_id).first()
+#     context = {'object': object}
 
-    return render(request, 'ram/ram-details.html', context)
+#     return render(request, 'ram/ram-details.html', context)
+
+
+class RamDetailView(auth_mixins.LoginRequiredMixin, views.DetailView):
+
+    model = Ram
+    template_name = 'ram/ram-details.html'
+    context_object_name = 'object'
+    login_url = reverse_lazy('login-page')
+
+    def get_object(self, queryset=None):
+        ram_id = self.kwargs.get('ram_id')
+        return Ram.objects.filter(pk=ram_id).first()
 
 
 @staff_member_required(login_url='login-page')
@@ -73,12 +89,27 @@ def ram_delete(request, ram_id):
     return render(request, 'ram/ram-delete.html', context)
 
 
-@login_required(login_url='login-page')
-def ram_list(request):
-    all_objects = Ram.objects.all().order_by('memory_type', 'max_frequency', 'manufacturer', 'series')
-    verified_objects = all_objects.filter(is_verified=True)
-    not_verified_objects = all_objects.filter(is_verified=False)
+# @login_required(login_url='login-page')
+# def ram_list(request):
+#     all_objects = Ram.objects.all().order_by('memory_type', 'max_frequency', 'manufacturer', 'series')
+#     verified_objects = all_objects.filter(is_verified=True)
+#     not_verified_objects = all_objects.filter(is_verified=False)
     
-    context = {'verified': verified_objects, 'not_verified': not_verified_objects}
+#     context = {'verified': verified_objects, 'not_verified': not_verified_objects}
 
-    return render(request, 'ram/ram-list.html', context)
+#     return render(request, 'ram/ram-list.html', context)
+
+
+class RamListView(auth_mixins.LoginRequiredMixin, views.ListView):
+
+    model = Ram
+    template_name = 'ram/ram-list.html'
+    login_url = reverse_lazy('login-page')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        all_objects = Ram.objects.all().order_by('memory_type', 'max_frequency', 'manufacturer', 'series')
+        context['verified'] = all_objects.filter(is_verified=True)
+        context['not_verified']  = all_objects.filter(is_verified=False)
+
+        return context

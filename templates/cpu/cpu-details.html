@@ -9,58 +9,58 @@
 {% block main_content %}
 <div class="row">
     <h2 class="head">
-        {{ cpu.model_name }} Details:
+        {{ object.model_name }} Details:
     </h2>
     <div class="col-details">
         <h2>Essentials</h2>
         <hr>
         <div>
             <span>Manufacturer: </span>
-            <span>{{ cpu.manufacturer }}</span>
+            <span>{{ object.manufacturer }}</span>
         </div>
 
         <div>
             <span>Model: </span>
-            <span>{{ cpu.model_name }}</span>
+            <span>{{ object.model_name }}</span>
         </div>
 
         <div>
             <span>Architecture: </span>
-            <span>{{ cpu.cpu_architecture }}</span>
+            <span>{{ object.cpu_architecture }}</span>
         </div>
 
         <h2>CPU Specifications</h2>
         <hr>
         <div>
             <span>Total Cores: </span>
-            <span>{{ cpu.total_cores }}</span>
+            <span>{{ object.total_cores }}</span>
         </div>
 
         <div>
             <span>Performance Core Base Frequency: </span>
-            <span>{{ cpu.p_core_base_clock }} GHz</span>
+            <span>{{ object.p_core_base_clock }} GHz</span>
         </div>
 
         <div>
             <span>Performance Core Max Frequency: </span>
-            <span>{{ cpu.p_core_boost_clock }} GHz</span>
+            <span>{{ object.p_core_boost_clock }} GHz</span>
         </div>
 
         <div>
             <span>L3 Cache: </span>
-            <span>{{ cpu.cpu_level_3_cache }} MB</span>
+            <span>{{ object.cpu_level_3_cache }} MB</span>
         </div>
 
         <div>
             <span>Supported Socket: </span>
-            <span>{{ cpu.cpu_socket }}</span>
+            <span>{{ object.cpu_socket }}</span>
         </div>
 
         <h2>Supplemental Information</h2>
         <hr>
         <div>
             <span>Release Date: </span>
-            <span>{{ cpu.cpu_release_date }}</span>
+            <span>{{ object.cpu_release_date }}</span>
         </div>
     </div>
 
@@ -77,8 +77,8 @@
 </div>
 {% if request.user.is_staff %}
     <div class="del-ver-buttons">
-        <button><a href="{% url 'cpu-edit' cpu_id=cpu.pk %}">Verify</a></button>
-        <button><a href="{% url 'cpu-delete' cpu_id=cpu.pk  %}">Delete</a></button>
+        <button><a href="{% url 'cpu-edit' cpu_id=object.pk %}">Verify</a></button>
+        <button><a href="{% url 'cpu-delete' cpu_id=object.pk  %}">Delete</a></button>
     </div>
 {% endif %}
 {% endblock %}

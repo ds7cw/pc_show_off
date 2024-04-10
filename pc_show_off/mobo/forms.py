@@ -2,7 +2,7 @@ from django import forms
 from .models import Mobo
 
 
-class CreateMoboModelForm(forms.ModelForm):
+class BaseMoboModelForm(forms.ModelForm):
 
     class Meta:
 
@@ -59,34 +59,18 @@ class CreateMoboModelForm(forms.ModelForm):
         }
 
 
-class DeleteMoboModelForm(forms.ModelForm):
+class CreateMoboModelForm(BaseMoboModelForm):
+
+    class Meta(BaseMoboModelForm.Meta):
+        pass
+
+
+class DeleteMoboModelForm(BaseMoboModelForm):
     
+    class Meta(BaseMoboModelForm.Meta):
+        pass
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['disabled'] = 'disabled'
-    class Meta:
-
-        model = Mobo
-        fields = [
-            'manufacturer',
-            'model_name',
-            'platform',
-            'cpu_socket',
-            'chipset',
-            'series',
-            'atx_factor',
-            'memory_type',
-            'memory_slots',
-            'maximum_ram',
-            'gpu_interface',
-        ]
-        labels = {
-            'model_name': 'Model Name',
-            'cpu_socket': 'CPU Socket',
-            'atx_factor': 'Form Factor',
-            'memory_type': 'Memory Type',
-            'memory_slots': 'Memory Slots',
-            'maximum_ram': 'Maximum RAM (GB)',
-            'gpu_interface': 'GPU Interface',
-        }

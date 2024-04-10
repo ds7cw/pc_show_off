@@ -9,12 +9,14 @@
     ~ Register Page ~
 </h1>
 
-<div>
-    <form action="{% url 'register-page' %}" method="post">
+<div class="profile">
+    <form class="profile-group" action="{% url 'register-page' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
 
-        <button type="submit">Register</button>
+        <button class="form-submit" type="submit">Register</button>
     </form>
+    <p><small>Already registered? <a href="{% url 'login-page' %}"> Login</a></small></p>
+    <br>
 </div>
 {% endblock %}

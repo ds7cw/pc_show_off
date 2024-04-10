@@ -51,3 +51,23 @@ img {
     display: block;
     max-width: 50%;
 }
+
+form.profile-group ul {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form.profile-group span {
+    display: flex;
+    justify-content: center;
+}
+
+div.profile small {
+    display: flex;
+    justify-content: center;
+}
+
+div.profile small > a {
+    margin-left: 5px;
+}
