@@ -6,6 +6,7 @@ body {
     flex-direction: column;
 }
 
+/* Header */
 header {
     background: linear-gradient(to right, #4CAF50, #2196F3);
     color: white;
@@ -56,6 +57,7 @@ header .btn a {
     color: white;
 }
 
+/* Main */
 main {
     width: 70%;
     margin: 0 auto;
@@ -66,6 +68,30 @@ h1 {
     text-align: center;
 }
 
+/* Home Page */
+div.home-page h1,
+div.home-page h2,
+div.home-page img,
+div.home-page p {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+div.home-page li {
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    list-style-type: none;
+    margin-bottom: 3px;
+}
+
+div.home-page ol {
+    margin: 25px;
+}
+
+/* Footer */
 footer {
     background: linear-gradient(to right, #2196F3, #4CAF50);
     color: white;

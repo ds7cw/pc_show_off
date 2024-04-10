@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Contributors</title>
+{% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
+
+{% block main_content %}
+<h1>
+    ~ Top Contributors ~
+</h1>
+
+<div>
+    <div>
+        <table class="contributors">
+            <tr>
+                <th>Username</th>
+                <th>Contributions</th>
+            </tr>
+                {% for obj in objects %}
+                    <tr>
+                        <td>{{ obj.email }}</td>
+                        <td>{{ obj.profiles.contributions }}</td>
+                    </tr>
+                {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

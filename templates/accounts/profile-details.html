@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>User Details</title>
+{% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
+
+{% block main_content %}
+<h1>
+    ~ User  <i>{{ request.user.email }}</i> Details ~
+</h1>
+
+<div>
+    <div class="profile">
+        
+        <div class="profile-picture">
+            <img src="{{ profile.profile_picture }}" alt="{{ request.user.email }}">
+        </div>
+
+        <form class="profile-group" action="{% url 'profile-details' user_pk=request.user.pk %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button class="form-submit" type="submit">Update</button>
+        </form>
+    </div>
+    <div class="del-ver-buttons">
+        <button><a href="{% url 'my-pc-list' %}">My PCs</a></button>
+        <button><a href="{% url 'pc-create' %}">New PC</a></button>
+    </div>
+</div>
+{% endblock %}

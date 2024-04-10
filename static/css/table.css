@@ -21,3 +21,17 @@ td {
     padding: 5px auto;
     text-align: center;
 }
+
+table.contributors {
+    width: 50%;
+    background: #f0f0f0;
+}
+
+table.contributors td {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+table tr:hover {
+    background: linear-gradient(to right, lightblue, lightblue);
+}

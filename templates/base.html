@@ -15,18 +15,19 @@
                 <a href="{% url 'index-page' %}">Home</a>
                 <a href="#">Getting Started</a>
                 <a href="{% url 'components-library' %}">Library</a>
-                <a href="#">Contributors</a>
+                <a href="{% url 'contributors' %}">Contributors</a>
                 <a href="{% url 'pc-list' %}">Computers</a>
             </nav>
 
             <div class="right-side">
                 {% if request.user.is_authenticated %}
+                    <button class="btn"><a href="{% url 'profile-details' user_pk=request.user.pk %}">Profile</a></button>
                     <form action="{% url 'logout-page' %}" method="post">
                         {% csrf_token %}
                         <button class="btn" type="submit">Logout</button>
                     </form>
                 {% else %} 
-                    <button class="btn"><a href="{% url 'register-page' %}">Register</a></button> 
+                    <button class="btn"><a href="{% url 'register-page' %}">Register</a></button>
                     <button class="btn"><a href="{% url 'login-page' %}">Login</a></button>
                 {% endif %}
             </div>
