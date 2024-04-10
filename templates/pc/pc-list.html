@@ -22,6 +22,7 @@
                 <th>PSU</th>
                 <th>SSD</th>
                 <th>Cost $</th>
+                <th>Rating</th>
             </tr>
                 {% for obj in objects %}
                     <tr>
@@ -33,6 +34,7 @@
                         <td>{{ obj.psu_part.wattage }}W</td>
                         <td>{{ obj.storage_part.total_storage }}GB</td>
                         <td>{{obj.approx_cost|default:'-' }}</td>
+                        <td>{{ obj.rating|floatformat:2|default:'-' }}</td>
                     </tr>
                 {% endfor %}
         </table>

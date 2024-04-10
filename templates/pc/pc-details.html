@@ -135,8 +135,8 @@
 
 <div class="del-ver-buttons">
     <button><a href="#">Comment</a></button>
-    <button><a href="#">Rate</a></button>
-        
+    <button><a href="{% url 'pc-rating' pc_name=object.pc_name %}">Rate</a></button>
+
     {% if request.user.pk == object.owner.pk %}
         <button><a href="{% url 'pc-edit' pc_name=object.pc_name %}">Edit</a></button>
         <button><a href="{% url 'pc-delete' pc_name=object.pc_name %}">Delete</a></button>

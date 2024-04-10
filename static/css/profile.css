@@ -20,7 +20,8 @@ div.profile {
     justify-content: center;
 }
   
-.profile-group input {
+.profile-group input,
+.profile-group select {
     width: 50%;
     padding: 5px;
     margin: 5px auto;

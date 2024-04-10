@@ -1,10 +1,11 @@
+from django.db.models import Avg
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.admin.views.decorators import staff_member_required
 
-from .forms import CreatePcModelForm, DeletePcModelForm
-from .models import Pc
+from .forms import CreatePcModelForm, DeletePcModelForm, PcRatingModelForm
+from .models import Pc, PcRating
 
 
 # Create your views here.
@@ -18,7 +19,7 @@ def get_pc_and_select_related(): # Should result in less Queries
         'psu_part',
         'storage_part',
         'case_part',
-    )
+    ).prefetch_related('ratings')
 
     return my_pc
 
@@ -97,6 +98,37 @@ def pc_delete(request, pc_name):
 @login_required(login_url='login-page')
 def pc_list(request):
     all_objects = get_pc_and_select_related()    
+    all_objects = all_objects.annotate(rating=Avg('ratings__rating_value'))
     context = {'objects': all_objects}
 
     return render(request, 'pc/pc-list.html', context)
+
+
+@login_required(login_url='login-page')
+def pc_rating(request, pc_name):
+    all_objects = get_pc_and_select_related()    
+    current_pc = all_objects.filter(pc_name=pc_name).first()
+    
+    if not current_pc:
+        return redirect('pc-list')
+
+    if request.method == 'POST':
+        form = PcRatingModelForm(request.POST)
+        if form.is_valid:
+            current_user = get_user_model()
+            current_user = current_user.objects.get(pk=request.user.pk)
+            existing_rating = PcRating.objects.filter(reviewer=current_user, pc=current_pc).first()
+            if existing_rating:
+                form = PcRatingModelForm(request.POST, instance=existing_rating)
+                form.save()
+            else:
+                new_rating = form.save(commit=False)
+                new_rating.reviewer = current_user
+                new_rating.pc = current_pc
+                new_rating.save()
+            return redirect('pc-list')
+
+    form = PcRatingModelForm()
+    context = {'form': form, 'object': current_pc}
+
+    return render(request, 'pc/pc-rating.html', context)

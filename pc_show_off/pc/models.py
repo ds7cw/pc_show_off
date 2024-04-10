@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from pc_show_off.case.models import Case
 from pc_show_off.cpu.models import Cpu
@@ -34,3 +35,34 @@ class Pc(models.Model):
 
     def __str__(self) -> str:
         return self.pc_name
+
+
+class PcRating(models.Model):
+
+    MAX_RATING_VAL = 5
+    ONE = 1
+    TWO = 2
+    THREE = 3
+    FOUR = 4
+    FIVE = 5
+
+    RATING_CHOICES = (
+        (ONE,'1'),
+        (TWO,'2'),
+        (THREE,'3'),
+        (FOUR,'4'),
+        (FIVE,'5'),
+    )
+
+    rating_value = models.PositiveSmallIntegerField(
+        blank=True,
+        null=True,
+        validators=[
+            MaxValueValidator(MAX_RATING_VAL)
+        ],
+        choices=RATING_CHOICES,
+    )
+
+    pc = models.ForeignKey(Pc, on_delete=models.CASCADE, related_name='ratings')
+
+    reviewer = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='ratings')

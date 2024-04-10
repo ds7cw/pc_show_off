@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pc, Cpu, Gpu, Mobo, Ram, Psu, Storage, Case
+from .models import Pc, Cpu, Gpu, Mobo, Ram, Psu, Storage, Case, PcRating
 
 
 class BasePcModelForm(forms.ModelForm):
@@ -69,3 +69,10 @@ class DeletePcModelForm(BasePcModelForm):
         super().__init__(*args, **kwargs)
         for field in self.fields:
             self.fields[field].widget.attrs['disabled'] = 'disabled'
+
+
+class PcRatingModelForm(forms.ModelForm):
+    class Meta:
+        model = PcRating
+        fields = ['rating_value']
+        labels = {'rating_value': 'Rating',}
