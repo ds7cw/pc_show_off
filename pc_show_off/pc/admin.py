@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pc
+from .models import Pc, PcRating, PcComment
 
 # Register your models here.
 @admin.register(Pc)
@@ -54,3 +54,38 @@ class PcAdmin(admin.ModelAdmin):
             }
         ],
     ]
+
+
+@admin.register(PcRating)
+class PcRatingAdmin(admin.ModelAdmin):
+
+    list_display = [
+        'pk',
+        'rating_value',
+        'pc',
+        'reviewer',
+    ]
+
+    list_filter = [
+        'pc',
+        'reviewer',
+    ]
+
+@admin.register(PcComment)
+class PcCommentAdmin(admin.ModelAdmin):
+
+    list_display = [
+        'pk',
+        'author',
+        'pc',
+        'date_of_creation',
+        'body',
+    ]
+
+    list_filter = [
+        'pc',
+        'author',
+    ]
+    
+    ordering = ['-date_of_creation']
+    

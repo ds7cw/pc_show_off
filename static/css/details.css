@@ -33,7 +33,6 @@ div.row {
 
 .del-ver-buttons {
     margin: 0 auto;
-    margin-bottom: 15px;
     width: 300px;
     display: block;
     display: flex;
@@ -42,6 +41,7 @@ div.row {
 
 .del-ver-buttons button {
     margin: 5px 15px;
+    margin-bottom: 15px;
     font-size: large;
     border-radius: 5px;
     padding: 5px 15px;

@@ -39,3 +39,12 @@ div.comments-div {
 .comment-spacer {
     flex: 1;
 }
+
+textarea {
+    display: flex;
+    width: 100%;
+    margin: 10px auto;
+    font-size: large;
+    font-family: sans-serif;
+    border-radius: 10px;
+}
