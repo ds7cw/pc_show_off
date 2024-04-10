@@ -69,3 +69,6 @@ class Cpu(ComputerComponent):
         blank=True,
         null=True,
     )
+
+    def __str__(self) -> str:
+        return f'{self.manufacturer} {self.model_name}'

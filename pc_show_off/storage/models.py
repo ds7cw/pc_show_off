@@ -120,3 +120,6 @@ class Storage(ComputerComponent):
             MaxValueValidator(MAX_LENGTH_VAL),
         ],
     )
+
+    def __str__(self) -> str:
+        return f'{self.manufacturer} {self.series} {self.total_storage}GB {self.interface}'

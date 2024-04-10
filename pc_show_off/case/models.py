@@ -212,3 +212,6 @@ class Case(ComputerComponent):
         max_length=MAX_COLOUR_LEN,
         choices=ColourChoices.choices,
     )
+
+    def __str__(self):
+        return f'{self.manufacturer} {self.series} {self.form_factor} {self.colour}'

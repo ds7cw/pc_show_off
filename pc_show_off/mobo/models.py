@@ -122,4 +122,4 @@ class Mobo(ComputerComponent):
     )
 
     def __str__(self) -> str:
-        return f'{self.manufacturer} {self.chipset}'
+        return f'{self.manufacturer} {self.series} {self.chipset} {self.platform} {self.cpu_socket} {self.memory_type}'

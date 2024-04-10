@@ -140,4 +140,4 @@ class Psu(ComputerComponent):
     )
 
     def __str__(self) -> str:
-        return super().__str__()
+        return f'{self.manufacturer} {self.model_name} {self.wattage}W {self.plus_rating}'

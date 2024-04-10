@@ -143,3 +143,6 @@ class Ram(ComputerComponent):
         null=True,
         max_length=MAX_WARRANTY_LEN,
     )
+
+    def __str__(self):
+        return f'{self.manufacturer} {self.series} {self.total_ram} {self.memory_type} {self.max_frequency}MHz CL{self.cas_latency}'

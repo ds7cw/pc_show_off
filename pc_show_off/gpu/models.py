@@ -126,4 +126,4 @@ class Gpu(ComputerComponent):
     )
 
     def __str__(self) -> str:
-        return self.short_model_name
+        return f'{self.manufacturer} {self.gpu_manufacturer} {self.short_model_name} {self.series} {self.v_ram}GB'
