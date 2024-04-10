@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pc, Cpu, Gpu, Mobo, Ram, Psu, Storage, Case, PcRating
+from .models import Pc, Cpu, Gpu, Mobo, Ram, Psu, Storage, Case, PcRating, PcComment
 
 
 class BasePcModelForm(forms.ModelForm):
@@ -76,3 +76,10 @@ class PcRatingModelForm(forms.ModelForm):
         model = PcRating
         fields = ['rating_value']
         labels = {'rating_value': 'Rating',}
+
+
+class PcCommentModelForm(forms.ModelForm):
+    class Meta:
+        model = PcComment
+        fields = ['body']
+        labels = {'body': 'Comment',}

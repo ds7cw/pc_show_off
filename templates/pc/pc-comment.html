@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>PC Comment</title>
+{% endblock %}
+{% block static_ref %}<link rel="stylesheet" href="{% static '/css/styles.css' %}">{% endblock %}
+
+{% block main_content %}
+
+<div class="card">
+    <h2 class="pc">
+        Comment on this Build
+    </h2>
+    <form class="profile-group" action="{% url 'pc-comment' pc_name=object.pc_name %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button type="submit" class="form-submit-pc">
+            Submit
+        </button>
+    </form>
+</div>
+{% endblock %}

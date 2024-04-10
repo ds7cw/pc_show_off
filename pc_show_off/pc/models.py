@@ -66,3 +66,16 @@ class PcRating(models.Model):
     pc = models.ForeignKey(Pc, on_delete=models.CASCADE, related_name='ratings')
 
     reviewer = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='ratings')
+
+
+class PcComment(models.Model):
+
+    MAX_BODY_LEN = 250
+
+    author = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='comments')
+    
+    pc = models.ForeignKey(Pc, on_delete=models.CASCADE, related_name='comments')
+
+    date_of_creation = models.DateTimeField(auto_now_add=True)
+
+    body = models.TextField(max_length=MAX_BODY_LEN)

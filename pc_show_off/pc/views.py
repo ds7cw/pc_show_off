@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib.admin.views.decorators import staff_member_required
 
-from .forms import CreatePcModelForm, DeletePcModelForm, PcRatingModelForm
-from .models import Pc, PcRating
+from .forms import CreatePcModelForm, DeletePcModelForm, PcRatingModelForm, PcCommentModelForm
+from .models import Pc, PcRating, PcComment
 
 
 # Create your views here.
@@ -19,7 +19,7 @@ def get_pc_and_select_related(): # Should result in less Queries
         'psu_part',
         'storage_part',
         'case_part',
-    ).prefetch_related('ratings')
+    ).prefetch_related('ratings', 'comments')
 
     return my_pc
 
@@ -48,7 +48,6 @@ def my_pc_list(request):
     context = {'objects': user_pcs}
 
     return render(request, 'pc/my-pc-list.html', context)
-
 
 
 @staff_member_required(login_url='login-page')
@@ -132,3 +131,26 @@ def pc_rating(request, pc_name):
     context = {'form': form, 'object': current_pc}
 
     return render(request, 'pc/pc-rating.html', context)
+
+
+login_required(login_url='login-page')
+def pc_comment(request, pc_name):
+    all_objects = get_pc_and_select_related()    
+    current_pc = all_objects.filter(pc_name=pc_name).first()
+    current_user = get_user_model()
+    current_user = current_user.objects.get(pk=request.user.pk)
+
+    if request.method == 'POST':
+        form = PcCommentModelForm(request.POST)
+
+        if form.is_valid():
+            new_comment = form.save(commit=False)
+            new_comment.pc = current_pc
+            new_comment.author = current_user
+            new_comment.save()
+            return redirect('pc-list')
+    
+    form = PcCommentModelForm()
+    context = {'form': form, 'object': current_pc}
+
+    return render(request, 'pc/pc-comment.html', context)

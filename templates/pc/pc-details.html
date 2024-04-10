@@ -133,8 +133,25 @@
     </div>
 </div>
 
+<div class="comments-div">
+    <details>
+        <summary>Comments Section</summary>
+        {% for comment in object.comments.all %} 
+            <div class="comments-details">
+                <div class="comment-header">
+                    <p class="comment-author">{{ comment.author }}</p>
+                    <p class="comment-spacer"></p>
+                    <p class="comment-date">{{ comment.date_of_creation }}</p>
+                </div>
+                <hr>
+                <p class="comment-body">{{ comment.body }}</p>
+            </div>
+        {% endfor %}
+    </details>
+</div>
+
 <div class="del-ver-buttons">
-    <button><a href="#">Comment</a></button>
+    <button><a href="{% url 'pc-comment' pc_name=object.pc_name %}">Comment</a></button>
     <button><a href="{% url 'pc-rating' pc_name=object.pc_name %}">Rate</a></button>
 
     {% if request.user.pk == object.owner.pk %}
