@@ -16,7 +16,7 @@ def components_library(request):
 
 def contributors(request):
     all_users = get_user_model()
-    all_users = all_users.objects.prefetch_related('profiles').order_by('-profiles__contributions')
+    all_users = all_users.objects.prefetch_related('profile').order_by('-profile__contributions')
     context = {'objects': all_users}
 
     return render(request, 'common/contributors.html', context)

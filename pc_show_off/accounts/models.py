@@ -73,7 +73,7 @@ class Profile(models.Model):
         UserModel,
         primary_key=True,
         on_delete=models.CASCADE,
-        related_name='profiles',
+        related_name='profile',
     )
 
     @property
