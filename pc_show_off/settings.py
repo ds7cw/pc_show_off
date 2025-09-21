@@ -29,6 +29,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == '1'
 
+DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL")
+DJANGO_LOG_FILE = os.environ.get("DJANGO_LOG_FILE")
+
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] # for local testing
 
 if not ALLOWED_HOSTS:
@@ -153,3 +156,37 @@ AUTH_USER_MODEL = 'accounts.AppUser'
 LOGIN_REDIRECT_URL = reverse_lazy('index-page')
 
 LOGOUT_REDIRECT_URL = reverse_lazy('login-page')
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "class": "logging.FileHandler",
+            "filename": DJANGO_LOG_FILE,
+            "level": DJANGO_LOG_LEVEL,
+            "formatter": "simple"
+        },
+        "console": {
+            "class": "logging.StreamHandler",
+            "level": DJANGO_LOG_LEVEL,
+            "formatter": "verbose",
+        }
+    },
+    "loggers": {
+        "": {
+            "level": DJANGO_LOG_LEVEL,
+            "handlers": ["file", "console"]
+        }
+    },
+    "formatters": {
+        "simple": {
+            "format": "{asctime}:{levelname} {message}",
+            "style": "{"
+        },
+        "verbose": {
+            "format": "{asctime}:{levelname} - {name} {module}.py (line {lineno:d}). {message}",
+            "style": "{"
+        },
+    }
+}
