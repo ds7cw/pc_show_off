@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model, mixins as auth_mixins
@@ -16,6 +17,7 @@ def cpu_create(request):
     UserModel = get_user_model()
     current_user = UserModel.objects.get(pk=request.user.pk)
     context = {'form': CreateCpuModelForm()}
+    logging.info(msg="User with pk {} opened a CPU Creation Form.".format(current_user.pk))
 
     if request.method == 'POST':
         if form.is_valid():
@@ -28,6 +30,8 @@ def cpu_create(request):
                 current_user.profile.save()
 
             new_instance.save()
+            logging.info(msg="User with pk {} created CPU {} {}.".format(
+                current_user.pk, new_instance.manufacturer, new_instance.model_name,))
             return redirect('cpu-list')
 
     return render(request, 'cpu/cpu-create.html', context)
