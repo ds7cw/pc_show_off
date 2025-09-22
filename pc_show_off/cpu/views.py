@@ -9,6 +9,8 @@ from django.urls import reverse, reverse_lazy
 from .forms import CreateCpuModelForm, DeleteCpuModelForm
 from .models import Cpu
 
+logger = logging.getLogger(name=__name__)
+
 
 # Create your views here.
 @login_required(login_url='login-page')
@@ -17,7 +19,7 @@ def cpu_create(request):
     UserModel = get_user_model()
     current_user = UserModel.objects.get(pk=request.user.pk)
     context = {'form': CreateCpuModelForm()}
-    logging.info(msg="User with pk {} opened a CPU Creation Form.".format(current_user.pk))
+    logger.info(msg="User with pk {} opened a CPU Creation Form".format(current_user.pk))
 
     if request.method == 'POST':
         if form.is_valid():
@@ -26,11 +28,15 @@ def cpu_create(request):
 
             if current_user.is_staff: # If created by staff member, assume naming conventions are correct
                 new_instance.is_verified = True
+                logger.info(msg="User with pk {} verified CPU {} {}".format(
+                    current_user.pk, new_instance.manufacturer, new_instance.model_name))
                 current_user.profile.contributions += 1
                 current_user.profile.save()
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    current_user.pk, current_user.profile.contributions))
 
             new_instance.save()
-            logging.info(msg="User with pk {} created CPU {} {}.".format(
+            logger.info(msg="User with pk {} created CPU {} {}.".format(
                 current_user.pk, new_instance.manufacturer, new_instance.model_name,))
             return redirect('cpu-list')
 
@@ -39,7 +45,7 @@ def cpu_create(request):
 
 @staff_member_required(login_url='login-page')
 def cpu_edit(request, cpu_id):
-    cpu_obj = Cpu.objects.select_related('contributor').get(pk=cpu_id)
+    cpu_obj = Cpu.objects.select_related('contributor__profile').get(pk=cpu_id)
     form = CreateCpuModelForm(instance=cpu_obj)
     context = {'form': form, 'cpu': cpu_obj}
 
@@ -48,13 +54,17 @@ def cpu_edit(request, cpu_id):
 
         if form.is_valid():
             updated_cpu = form.save(commit=False)
-            
+
             if not updated_cpu.is_verified:
                 updated_cpu.is_verified = True
-                cpu_obj.contributor.profiles.contributions += 1
-                cpu_obj.contributor.profiles.save()
-        
-            updated_cpu.save()        
+                logger.info(msg="User with pk {} verified CPU {} {}".format(
+                    request.user.pk, updated_cpu.manufacturer, updated_cpu.model_name))
+                cpu_obj.contributor.profile.contributions += 1
+                cpu_obj.contributor.profile.save()
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    cpu_obj.contributor.pk, cpu_obj.contributor.profile.contributions))
+
+            updated_cpu.save()
             return redirect('cpu-list')
 
     return render(request, 'cpu/cpu-edit.html',context)
@@ -62,7 +72,7 @@ def cpu_edit(request, cpu_id):
 
 # @login_required(login_url='login-page')
 # def cpu_details(request, cpu_id):
-    
+
 #     cpu = Cpu.objects.filter(pk=cpu_id).first()
 #     context = {'object': cpu}
 
@@ -87,11 +97,15 @@ def cpu_delete(request, cpu_id):
     form = DeleteCpuModelForm(instance=cpu)
     context = {'form': form, 'cpu': cpu}
 
+    logger.warning(msg="User with pk {} opened a CPU Deletion Form for {} {}".format(
+        request.user.pk, cpu.manufacturer, cpu.model_name,))
+
     if request.method == 'POST':
-        print(f'-- {cpu} DELETED --')
+        logger.warning(msg="CPU {} {} deleted".format(
+            cpu.manufacturer, cpu.model_name))
         cpu.delete()
         return redirect('cpu-list')
-    
+
     return render(request, 'cpu/cpu-delete.html', context)
 
 
@@ -100,7 +114,7 @@ def cpu_delete(request, cpu_id):
 #     all_cpu_objects = Cpu.objects.all().order_by('manufacturer', 'model_name')
 #     verified_cpus = all_cpu_objects.filter(is_verified=True)
 #     not_verified_cpus = all_cpu_objects.filter(is_verified=False)
-    
+
 #     context = {'verified': verified_cpus, 'not_verified': not_verified_cpus}
 
 #     return render(request, 'cpu/cpu-list.html', context)
