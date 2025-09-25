@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model, mixins as auth_mixins
@@ -8,6 +9,8 @@ from django.urls import reverse, reverse_lazy
 from .forms import CreateMoboModelForm, DeleteMoboModelForm
 from .models import Mobo
 
+logger = logging.getLogger(name=__name__)
+
 
 # Create your views here.
 @login_required(login_url='login-page')
@@ -16,6 +19,7 @@ def mobo_create(request):
     UserModel = get_user_model()
     current_user = UserModel.objects.get(pk=request.user.pk)
     context = {'form': CreateMoboModelForm()}
+    logger.info(msg="User with pk {} opened a MoBo Creation Form".format(current_user.pk))
 
     if request.method == 'POST':
         if form.is_valid():
@@ -24,10 +28,16 @@ def mobo_create(request):
 
             if current_user.is_staff: # If created by staff member, assume naming conventions are correct
                 new_instance.is_verified = True
+                logger.info(msg="User with pk {} verified MoBo {} {}".format(
+                    current_user.pk, new_instance.manufacturer, new_instance.model_name))
                 current_user.profile.contributions += 1
                 current_user.profile.save()
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    current_user.pk, current_user.profile.contributions))
 
             new_instance.save()
+            logger.info("User with pk {} created MoBo {} {}".format(
+                current_user.pk, new_instance.manufacturer, new_instance.model_name))
             return redirect('mobo-list')
 
     return render(request, 'mobo/mobo-create.html', context)
@@ -46,10 +56,14 @@ def mobo_edit(request, mobo_id):
             updated_mobo = form.save(commit=False)
 
             if not updated_mobo.is_verified:
-                updated_mobo.is_verified = True        
+                updated_mobo.is_verified = True
+                logger.info(msg="User with pk {} verified MoBo {} {}".format(
+                    request.user.pk, updated_mobo.manufacturer, updated_mobo.model_name))
                 obj.contributor.profiles.contributions += 1
                 obj.contributor.profiles.save()
-            
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    obj.contributor.pk, obj.contributor.profile.contributions))
+
             updated_mobo.save()
             return redirect('mobo-list')
 
@@ -78,14 +92,19 @@ class MoboDetailView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
 @staff_member_required(login_url='login-page')
 def mobo_delete(request, mobo_id):
-    object = Mobo.objects.filter(pk=mobo_id).first()
-    form = DeleteMoboModelForm(instance=object)
-    context = {'form': form, 'object': object}
-    print(object)
+    obj = Mobo.objects.filter(pk=mobo_id).first()
+    form = DeleteMoboModelForm(instance=obj)
+    context = {'form': form, 'object': obj}
+
+    logger.warning(msg="User with pk {} opened a MoBo Deletion Form for {} {}".format(
+        request.user.pk, obj.manufacturer, obj.model_name))
+
     if request.method == 'POST':
-        object.delete()
+        logger.warning(msg="MoBo {} {} deleted".format(
+            obj.manufacturer, obj.model_name))
+        obj.delete()
         return redirect('mobo-list')
-    
+
     return render(request, 'mobo/mobo-delete.html', context)
 
 
@@ -94,7 +113,7 @@ def mobo_delete(request, mobo_id):
 #     all_objects = Mobo.objects.all().order_by('manufacturer', 'model_name')
 #     verified_objects = all_objects.filter(is_verified=True)
 #     not_verified_objects = all_objects.filter(is_verified=False)
-    
+
 #     context = {'verified': verified_objects, 'not_verified': not_verified_objects}
 
 #     return render(request, 'mobo/mobo-list.html', context)
