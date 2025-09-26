@@ -100,9 +100,11 @@ def mobo_delete(request, mobo_id):
         request.user.pk, obj.manufacturer, obj.model_name))
 
     if request.method == 'POST':
-        logger.warning(msg="MoBo {} {} deleted".format(
-            obj.manufacturer, obj.model_name))
+        mobo_manufacturer = obj.manufacturer
+        mobo_model_name = obj.model_name
         obj.delete()
+        logger.warning(msg="MoBo {} {} deleted".format(
+            mobo_manufacturer, mobo_model_name))
         return redirect('mobo-list')
 
     return render(request, 'mobo/mobo-delete.html', context)

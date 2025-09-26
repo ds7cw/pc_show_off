@@ -101,9 +101,11 @@ def cpu_delete(request, cpu_id):
         request.user.pk, cpu.manufacturer, cpu.model_name,))
 
     if request.method == 'POST':
-        logger.warning(msg="CPU {} {} deleted".format(
-            cpu.manufacturer, cpu.model_name))
+        cpu_manufacturer = cpu.manufacturer
+        cpu_model_name = cpu.model_name
         cpu.delete()
+        logger.warning(msg="CPU {} {} deleted".format(
+            cpu_manufacturer, cpu_model_name))
         return redirect('cpu-list')
 
     return render(request, 'cpu/cpu-delete.html', context)
