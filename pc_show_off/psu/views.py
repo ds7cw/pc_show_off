@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model, mixins as auth_mixins
@@ -8,6 +9,8 @@ from django.urls import reverse, reverse_lazy
 from .forms import CreatePsuModelForm, DeletePsuModelForm
 from .models import Psu
 
+logger = logging.getLogger(name=__name__)
+
 
 # Create your views here.
 @login_required(login_url='login-page')
@@ -16,6 +19,7 @@ def psu_create(request):
     UserModel = get_user_model()
     current_user = UserModel.objects.get(pk=request.user.pk)
     context = {'form': CreatePsuModelForm()}
+    logger.info(msg="User with pk {} opened a PSU Creation Form".format(current_user.pk))
 
     if request.method == 'POST':
         if form.is_valid():
@@ -24,10 +28,16 @@ def psu_create(request):
 
             if current_user.is_staff: # If created by staff member, assume naming conventions are correct
                 new_instance.is_verified = True
+                logger.info(msg="User with pk {} verified PSU {} {}".format(
+                    current_user.pk, new_instance.manufacturer, new_instance.model_name))
                 current_user.profile.contributions += 1
                 current_user.profile.save()
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    current_user.pk, current_user.profile.contributions))
 
             new_instance.save()
+            logger.info("User with pk {} created PSU {} {}".format(
+                current_user.pk, new_instance.manufacturer, new_instance.model_name))
             return redirect('psu-list')
 
     return render(request, 'psu/psu-create.html', context)
@@ -46,10 +56,14 @@ def psu_edit(request, psu_id):
             updated_psu = form.save(commit=False)
 
             if not updated_psu.is_verified:
-                updated_psu.is_verified = True        
+                updated_psu.is_verified = True
+                logger.info(msg="User with pk {} verified PSU {} {}".format(
+                    request.user.pk, updated_psu.manufacturer, updated_psu.model_name))
                 obj.contributor.profiles.contributions += 1
                 obj.contributor.profiles.save()
-    
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    obj.contributor.pk, obj.contributor.profile.contributions))
+
             updated_psu.save()
             return redirect('psu-list')
 
@@ -78,14 +92,21 @@ class PsuDetailView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
 @staff_member_required(login_url='login-page')
 def psu_delete(request, psu_id):
-    object = Psu.objects.filter(pk=psu_id).first()
-    form = DeletePsuModelForm(instance=object)
-    context = {'form': form, 'object': object}
+    obj = Psu.objects.filter(pk=psu_id).first()
+    form = DeletePsuModelForm(instance=obj)
+    context = {'form': form, 'object': obj}
+
+    logger.warning(msg="User with pk {} opened a PSU Deletion Form for {} {}".format(
+        request.user.pk, obj.manufacturer, obj.model_name))
 
     if request.method == 'POST':
-        object.delete()
+        psu_manufacturer = obj.manufacturer
+        psu_model_name = obj.model_name
+        obj.delete()
+        logger.warning(msg="PSU {} {} deleted".format(
+            psu_manufacturer, psu_model_name))
         return redirect('psu-list')
-    
+
     return render(request, 'psu/psu-delete.html', context)
 
 
@@ -94,7 +115,7 @@ def psu_delete(request, psu_id):
 #     all_objects = Psu.objects.all().order_by('manufacturer', 'model_name')
 #     verified_objects = all_objects.filter(is_verified=True)
 #     not_verified_objects = all_objects.filter(is_verified=False)
-    
+
 #     context = {'verified': verified_objects, 'not_verified': not_verified_objects}
 
 #     return render(request, 'psu/psu-list.html', context)
