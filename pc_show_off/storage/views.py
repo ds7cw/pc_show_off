@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model, mixins as auth_mixins
@@ -8,6 +9,8 @@ from django.urls import reverse, reverse_lazy
 from .forms import CreateStorageModelForm, DeleteStorageModelForm
 from .models import Storage
 
+logger = logging.getLogger(__name__)
+
 
 # Create your views here.
 @login_required(login_url='login-page')
@@ -16,6 +19,7 @@ def storage_create(request):
     UserModel = get_user_model()
     current_user = UserModel.objects.get(pk=request.user.pk)
     context = {'form': CreateStorageModelForm()}
+    logger.info(msg="User with pk {} opened a SSD/HDD Creation Form".format(current_user.pk))
 
     if request.method == 'POST':
         if form.is_valid():
@@ -24,10 +28,17 @@ def storage_create(request):
 
             if current_user.is_staff: # If created by staff member, assume naming conventions are correct
                 new_instance.is_verified = True
+                logger.info(msg="User with pk {} verified SSD/HDD {} {} {}".format(current_user.pk,
+                    new_instance.manufacturer, new_instance.series, new_instance.model_name))
+
                 current_user.profile.contributions += 1
                 current_user.profile.save()
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    current_user.pk, current_user.profile.contributions))
 
             new_instance.save()
+            logger.info("User with pk {} created SSD/HDD {} {} {}".format(current_user.pk,
+                new_instance.manufacturer, new_instance.series, new_instance.model_name))
             return redirect('storage-list')
 
     return render(request, 'storage/storage-create.html', context)
@@ -44,12 +55,16 @@ def storage_edit(request, storage_id):
 
         if form.is_valid():
             updated_storage = form.save(commit=False)
-            
+
             if not updated_storage.is_verified:
                 updated_storage.is_verified = True
+                logger.info(msg="User with pk {} verified SSD/HDD {} {} {}".format(request.user.pk,
+                    updated_storage.manufacturer, updated_storage.series, updated_storage.model_name))
                 obj.contributor.profiles.contributions += 1
                 obj.contributor.profiles.save()
-    
+                logger.info(msg="Contributions of user with pk {} increased to {}".format(
+                    obj.contributor.pk, obj.contributor.profile.contributions))
+
             updated_storage.save()        
             return redirect('storage-list')
 
@@ -78,14 +93,22 @@ class StorageDetailView(auth_mixins.LoginRequiredMixin, views.DetailView):
 
 @staff_member_required(login_url='login-page')
 def storage_delete(request, storage_id):
-    object = Storage.objects.filter(pk=storage_id).first()
-    form = DeleteStorageModelForm(instance=object)
-    context = {'form': form, 'object': object}
+    obj = Storage.objects.filter(pk=storage_id).first()
+    form = DeleteStorageModelForm(instance=obj)
+    context = {'form': form, 'object': obj}
+
+    logger.warning(msg="User with pk {} opened a SSD/HDD Deletion Form for {} {} {}".format(
+        request.user.pk, obj.manufacturer, obj.series, obj.model_name))
 
     if request.method == 'POST':
-        object.delete()
+        storage_manufacturer = obj.manufacturer
+        storage_series = obj.series
+        storage_model_name = obj.model_name
+        obj.delete()
+        logger.warning(msg="SSD/HDD {} {} {} deleted".format(
+            storage_manufacturer, storage_series, storage_model_name))
         return redirect('storage-list')
-    
+
     return render(request, 'storage/storage-delete.html', context)
 
 
@@ -94,7 +117,7 @@ def storage_delete(request, storage_id):
 #     all_objects = Storage.objects.all().order_by('total_storage', 'manufacturer', 'series')
 #     verified_objects = all_objects.filter(is_verified=True)
 #     not_verified_objects = all_objects.filter(is_verified=False)
-    
+
 #     context = {'verified': verified_objects, 'not_verified': not_verified_objects}
 
 #     return render(request, 'storage/storage-list.html', context)
