@@ -51,6 +51,7 @@ MY_APPS = [
     'pc_show_off.psu',
     'pc_show_off.ram',
     'pc_show_off.storage',
+    'rest_framework',
 ]
 
 INSTALLED_APPS = [
