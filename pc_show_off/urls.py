@@ -29,4 +29,7 @@ urlpatterns = [
     path('power-supply/', include('pc_show_off.psu.urls')),
     path('ram/', include('pc_show_off.ram.urls')),
     path('storage/', include('pc_show_off.storage.urls')),
+
+    # API Endpoints
+    path('api/v1/cpus/', include('pc_show_off.cpu.api_urls')),
 ]
