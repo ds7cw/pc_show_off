@@ -89,4 +89,23 @@ docker compose exec web python manage.py migrate
 docker compose exec web python manage.py createsuperuser
 ```
 
+## API Setup
+File Structure
+```
+pc_show_off/
+└── cpu/
+    ├── views.py          # HTML views
+    ├── api_views.py      # DRF views
+    ├── serializers.py    # DRF serializers
+    ├── urls.py           # HTML routes
+    └── api_urls.py       # API routes
+```
+
+Endpoints composition
+- `GET     <domain>/api/v<#>/cpus/`      -> List all CPU objects
+- `POST    <domain>/api/v<#>/cpus/`      -> Create a new CPU
+- `GET     <domain>/api/v<#>/cpus/<id>/` -> Retrieve a specific CPU
+- `PUT     <domain>/api/v<#>/cpus/<id>/` -> Update a specific CPU
+- `DELETE  <domain>/api/v<#>/cpus/<id>/` -> Delete a specific CPU
+
 ---
