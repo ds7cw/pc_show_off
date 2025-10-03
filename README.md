@@ -97,6 +97,7 @@ pc_show_off/
     ├── views.py          # HTML views
     ├── api_views.py      # DRF views
     ├── serializers.py    # DRF serializers
+    ├── test_api.py       # DRF tests
     ├── urls.py           # HTML routes
     └── api_urls.py       # API routes
 ```
