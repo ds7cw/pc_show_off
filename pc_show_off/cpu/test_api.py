@@ -4,12 +4,13 @@ from django.contrib.auth import get_user_model
 
 class CpuApiTest(APITestCase):
     def setUp(self):
-        # Create a user and authenticate
-        self.user = get_user_model().objects.create_user(email='testuser', password='testpass')
-        self.client.force_authenticate(user=self.user)
+        """Set up test users & test data"""
+        self.admin_user = get_user_model().objects.create_user(
+            email='admin@user.com', password='testpass', is_staff=True)
+        self.regular_user = get_user_model().objects.create_user(
+            email='regular@user.com', password='testpass', is_staff=False)
 
-    def test_create_and_retrieve_cpu(self):
-        create_data = {
+        self.cpu_data = {
             "id": 2,
             "model_name": "Core i7-13700K",
             "is_verified": False,
@@ -23,7 +24,11 @@ class CpuApiTest(APITestCase):
             "cpu_release_date": "2022-09-27",
             "contributor": 1
         }
-        create_response = self.client.post('/api/v1/cpus/', create_data, format='json')
+        
+    def test_create_and_retrieve_cpu(self):
+        """Good weather scenario"""
+        self.client.force_authenticate(user=self.admin_user)
+        create_response = self.client.post('/api/v1/cpus/', self.cpu_data, format='json')
         self.assertEqual(create_response.status_code, status.HTTP_201_CREATED)
 
         cpu_id = create_response.data['id']
@@ -34,3 +39,9 @@ class CpuApiTest(APITestCase):
         self.assertEqual(retrieve_response.status_code, status.HTTP_200_OK)
         self.assertEqual(retrieve_response.data['manufacturer'], "Intel")
         self.assertEqual(retrieve_response.data['model_name'], "Core i7-13700K")
+
+    def test_regular_user_cannot_create_cpu(self):
+        """Bad weather scenario"""
+        self.client.force_authenticate(user=self.regular_user)
+        response = self.client.post('/api/v1/cpus/', self.cpu_data, format='json')
+        self.assertEqual(response.status_code, 403)
