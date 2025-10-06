@@ -33,4 +33,5 @@ urlpatterns = [
     # API Endpoints
     path('api/v1/cpus/', include('pc_show_off.cpu.api_urls')),
     path('api/v1/gpus/', include('pc_show_off.gpu.api_urls')),
+    path('api/v1/mobos/', include('pc_show_off.mobo.api_urls')),
 ]
