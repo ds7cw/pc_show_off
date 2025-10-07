@@ -36,4 +36,5 @@ urlpatterns = [
     path('api/v1/mobos/', include('pc_show_off.mobo.api_urls')),
     path('api/v1/psus/', include('pc_show_off.psu.api_urls')),
     path('api/v1/rams/', include('pc_show_off.ram.api_urls')),
+    path('api/v1/storage-devices/', include('pc_show_off.storage.api_urls')),
 ]
