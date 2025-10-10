@@ -38,4 +38,5 @@ urlpatterns = [
     path('api/v1/rams/', include('pc_show_off.ram.api_urls')),
     path('api/v1/storage-devices/', include('pc_show_off.storage.api_urls')),
     path('api/v1/cases/', include('pc_show_off.case.api_urls')),
+    path('api/v1/pcs/', include('pc_show_off.pc.api_urls')),
 ]
