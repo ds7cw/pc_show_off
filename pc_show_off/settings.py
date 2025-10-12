@@ -29,8 +29,8 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DEBUG')) == '1'
 
-DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL")
-DJANGO_LOG_FILE = os.environ.get("DJANGO_LOG_FILE")
+DJANGO_LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", default="DEBUG")
+DJANGO_LOG_FILE = os.environ.get("DJANGO_LOG_FILE", default=os.path.join(BASE_DIR, "debug.log"))
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost'] # for local testing
 
