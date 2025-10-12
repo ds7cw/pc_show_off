@@ -1,0 +1,41 @@
+name: Run API Tests
+
+on:
+  push:
+    paths:
+      - 'pc_show_off/**'
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Django API Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run migrations
+        run: |
+          python manage.py migrate
+
+      - name: Run API tests
+        run: |
+          python manage.py test pc_show_off.cpu.test_api \
+                              pc_show_off.gpu.test_api \
+                              pc_show_off.mobo.test_api \
+                              pc_show_off.ram.test_api \
+                              pc_show_off.psu.test_api \
+                              pc_show_off.storage.test_api \
+                              pc_show_off.case.test_api \
+                              pc_show_off.pc.test_api
