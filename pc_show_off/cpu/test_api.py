@@ -22,7 +22,7 @@ class CpuApiTest(APITestCase):
             "p_core_boost_clock": 5.4,
             "cpu_level_3_cache": 30,
             "cpu_release_date": "2022-09-27",
-            "contributor": 1
+            "contributor": self.admin_user.id
         }
         
     def test_create_and_retrieve_cpu(self):
