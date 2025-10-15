@@ -35,11 +35,4 @@ jobs:
 
       - name: Run API tests
         run: |
-          python manage.py test pc_show_off.cpu.test_api \
-                              pc_show_off.gpu.test_api \
-                              pc_show_off.mobo.test_api \
-                              pc_show_off.ram.test_api \
-                              pc_show_off.psu.test_api \
-                              pc_show_off.storage.test_api \
-                              pc_show_off.case.test_api \
-                              pc_show_off.pc.test_api
+          python manage.py test pc_show_off
