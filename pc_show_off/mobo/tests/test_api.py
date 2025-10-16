@@ -25,7 +25,7 @@ class MoboApiTest(APITestCase):
             "memory_slots": "4",
             "maximum_ram": 256,
             "gpu_interface": "PCIe 5.0",
-            "contributor": 1
+            "contributor": self.admin_user.id
         }
 
     def test_create_and_retrieve_mobo(self):
@@ -38,7 +38,7 @@ class MoboApiTest(APITestCase):
 
         # Retrieve Motherboard via API
         retrieve_response = self.client.get(f'/api/v1/mobos/{mobo_id}/')
-        print('\Motherboard Data:\n{}\n'.format(retrieve_response.data))
+        print('\nMotherboard Data:\n{}\n'.format(retrieve_response.data))
         self.assertEqual(retrieve_response.status_code, status.HTTP_200_OK)
         self.assertEqual(retrieve_response.data['manufacturer'], "MSI")
         self.assertEqual(retrieve_response.data['model_name'], "MAG X670E TOMAHAWK WIFI")

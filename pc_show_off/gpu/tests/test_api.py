@@ -25,7 +25,7 @@ class GpuApiTest(APITestCase):
             "gpu_interface": "PCIe 4.0",
             "recommended_psu": 650,
             "gpu_release_date": "2024-01-08",
-            "contributor": 1
+            "contributor": self.admin_user.id
         }
 
     def test_create_and_retrieve_gpu(self):

@@ -137,7 +137,7 @@ class PcApiTest(APITestCase):
             "pc_name": "Terminator",
             "description": "",
             "approx_cost": "999.99",
-            "owner": 1,
+            "owner": self.admin_user.id,
             "cpu_part": self.cpu.id,
             "gpu_part": self.gpu.id,
             "mobo_part": self.mobo.id,
