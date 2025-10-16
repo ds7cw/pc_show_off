@@ -24,7 +24,7 @@ class PsuApiTest(APITestCase):
             "width": 150,
             "depth": 140,
             "warranty": 7,
-            "contributor": 1
+            "contributor": self.admin_user.id
         }
 
     def test_create_and_retrieve_psu(self):

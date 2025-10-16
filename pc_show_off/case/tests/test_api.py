@@ -29,7 +29,7 @@ class CaseApiTest(APITestCase):
             "bottom_fans": "0",
             "rear_fans": "1",
             "colour": "Black",
-            "contributor": 1
+            "contributor": self.admin_user.id
         }
 
     def test_create_and_retrieve_pc_case(self):

@@ -26,7 +26,7 @@ class RamApiTest(APITestCase):
             "colour": "Black",
             "rgb": "None",
             "warranty": "Limited Lifetime Warranty",
-            "contributor": 1
+            "contributor": self.admin_user.id
         }
 
     def test_create_and_retrieve_ram(self):

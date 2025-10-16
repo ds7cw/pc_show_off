@@ -24,7 +24,7 @@ class StorageApiTest(APITestCase):
             "read_speed": 6000,
             "write_speed": 5000,
             "length": 80,
-            "contributor": 1
+            "contributor": self.admin_user.id
         }
 
     def test_create_and_retrieve_storage(self):
