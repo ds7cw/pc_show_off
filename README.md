@@ -65,6 +65,7 @@ Requirements:
 asgiref==3.7.2
 Django==5.0.2
 django-dotenv==1.4.2
+djangorestframework==3.15.2
 sqlparse==0.4.4
 tzdata==2024.1
 ```
@@ -97,7 +98,9 @@ pc_show_off/
     ├── views.py          # HTML views
     ├── api_views.py      # DRF views
     ├── serializers.py    # DRF serializers
-    ├── test_api.py       # DRF tests
+    ├── tests/            # Tests folder
+    │   ├── __init__.py
+    │   └── test_api.py   # API tests
     ├── urls.py           # HTML routes
     └── api_urls.py       # API routes
 ```
