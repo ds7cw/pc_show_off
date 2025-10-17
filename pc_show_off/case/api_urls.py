@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from .api_views import CaseViewSet
 
 router = DefaultRouter()
-router.register(r'', CaseViewSet, basename='case')
+router.register(r'', CaseViewSet, basename='case-api')
 
 urlpatterns = [
     path('', include(router.urls)),
