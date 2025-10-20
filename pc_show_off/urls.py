@@ -14,10 +14,12 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 from django.urls import path, include
+from django.views.i18n import set_language
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('pc_show_off.common.urls')),
     path('accounts/', include('pc_show_off.accounts.urls')),
@@ -29,6 +31,7 @@ urlpatterns = [
     path('power-supply/', include('pc_show_off.psu.urls')),
     path('ram/', include('pc_show_off.ram.urls')),
     path('storage/', include('pc_show_off.storage.urls')),
+    path('set-language/', set_language, name='set_language'),
 
     # API Endpoints
     path('api/v1/cpus/', include('pc_show_off.cpu.api_urls')),
@@ -39,4 +42,4 @@ urlpatterns = [
     path('api/v1/storage-devices/', include('pc_show_off.storage.api_urls')),
     path('api/v1/cases/', include('pc_show_off.case.api_urls')),
     path('api/v1/pcs/', include('pc_show_off.pc.api_urls')),
-]
+)

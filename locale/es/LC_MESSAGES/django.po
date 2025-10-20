@@ -1,0 +1,68 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-20 18:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+#: pc_show_off/accounts/models.py:16
+msgid "email address"
+msgstr ""
+
+#: pc_show_off/accounts/models.py:19
+msgid "A user with that email already exists."
+msgstr ""
+
+#: pc_show_off/accounts/models.py:23
+msgid "date joined"
+msgstr ""
+
+#: templates/cpu/cpu-details.html:69
+msgid "What is a Central Processing Unit (CPU)? "
+msgstr ""
+
+#: templates/cpu/cpu-details.html:71
+msgid ""
+"The Central Processing Unit (CPU) is the primary component of a computer "
+"that acts as its \"control center.\" The CPU, also referred to as the "
+"\"central\" or \"main\" processor, is a complex set of electronic circuitry "
+"that runs the machine's operating system and apps. The CPU interprets, "
+"processes and executes instructions, most often from the hardware and "
+"software programs running on the device."
+msgstr ""
+
+#: templates/cpu/cpu-details.html:72
+msgid ""
+"The CPU performs arithmetic, logic, and other operations to transform data "
+"input into more usable information output. While the CPU must contain at "
+"least one processing core, many contain multiple cores. A server with two "
+"hexa-core CPUs, for example, will have a total of 12 processors."
+msgstr ""
+
+#: templates/cpu/cpu-details.html:74
+msgid "What You Need to Know About a Central Processing Unit (CPU)?"
+msgstr ""
+
+#: templates/cpu/cpu-details.html:75
+msgid ""
+"Running multiple processor units simultaneously allows for multi-tasking and "
+"can dramatically improve performance. But while important, the number of "
+"cores and processors aren't the only factors that need to be taken into "
+"consideration. To determine the best CPU for a project, developers typically "
+"focus on the specific applications that will be dependent on the CPU and "
+"identify the most important features based on those apps' requirements. "
+"Among the many things to consider are: "
+msgstr ""

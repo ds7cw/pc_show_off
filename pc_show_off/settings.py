@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -75,6 +76,7 @@ REST_FRAMEWORK = {
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware', # Keep between Session & Common
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -200,3 +202,18 @@ LOGGING = {
         },
     }
 }
+
+LANGUAGE_CODE = 'en' # Default language
+
+# Supported languages
+LANGUAGES = [
+    ('en', _('English')),
+    ('fr', _('French')),
+    ('de', _('German')),
+    ('es', _('Spanish')),
+]
+
+# Locale path (where .po/.mo files live)
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale'),
+]

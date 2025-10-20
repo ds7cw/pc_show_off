@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
     <title>CPU Details</title>
@@ -8,6 +9,17 @@
 
 {% block main_content %}
 <div class="row">
+    <form action="{% url 'set_language' %}" method="post">
+    {% csrf_token %}
+    <select name="language">
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+    </select>
+    <input type="submit" value="Change language">
+    </form>
+
     <h2 class="head">
         {{ object.model_name }} Details:
     </h2>
@@ -65,13 +77,13 @@
     </div>
 
     <div class="col-definition">
-        <h2>What is a Central Processing Unit (CPU)?</h2>
+        <h2>{% blocktrans %}What is a Central Processing Unit (CPU)? {% endblocktrans %}</h2>
         <hr>
-        <p>The Central Processing Unit (CPU) is the primary component of a computer that acts as its “control center.” The CPU, also referred to as the “central” or “main” processor, is a complex set of electronic circuitry that runs the machine’s operating system and apps. The CPU interprets, processes and executes instructions, most often from the hardware and software programs running on the device.</p>
-        <p>The CPU performs arithmetic, logic, and other operations to transform data input into more usable information output. While the CPU must contain at least one processing core, many contain multiple cores. A server with two hexa-core CPUs, for example, will have a total of 12 processors.</p>
+        <p>{% blocktrans %}The Central Processing Unit (CPU) is the primary component of a computer that acts as its "control center." The CPU, also referred to as the "central" or "main" processor, is a complex set of electronic circuitry that runs the machine's operating system and apps. The CPU interprets, processes and executes instructions, most often from the hardware and software programs running on the device.{% endblocktrans %}</p>
+        <p>{% blocktrans %}The CPU performs arithmetic, logic, and other operations to transform data input into more usable information output. While the CPU must contain at least one processing core, many contain multiple cores. A server with two hexa-core CPUs, for example, will have a total of 12 processors.{% endblocktrans %}</p>
 
-        <h2>What You Need to Know About a Central Processing Unit (CPU)?</h2>
-        <p>Running multiple processor units simultaneously allows for multi-tasking and can dramatically improve performance. But while important, the number of cores and processors aren’t the only factors that need to be taken into consideration. To determine the best CPU for a project, developers typically focus on the specific applications that will be dependent on the CPU and identify the most important features based on those apps’ requirements. Among the many things to consider are: </p>
+        <h2>{% blocktrans %}What You Need to Know About a Central Processing Unit (CPU)?{% endblocktrans %}</h2>
+        <p>{% blocktrans %}Running multiple processor units simultaneously allows for multi-tasking and can dramatically improve performance. But while important, the number of cores and processors aren't the only factors that need to be taken into consideration. To determine the best CPU for a project, developers typically focus on the specific applications that will be dependent on the CPU and identify the most important features based on those apps' requirements. Among the many things to consider are: {% endblocktrans %}</p>
         <p>Source: <a href="https://www.arm.com/glossary/cpu">arm</a></p>
     </div>
 </div>
