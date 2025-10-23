@@ -23,15 +23,15 @@ msgstr ""
 
 #: pc_show_off/accounts/models.py:19
 msgid "A user with that email already exists."
-msgstr ""
+msgstr "Un utilisateur avec cet e-mail existe déjà."
 
 #: pc_show_off/accounts/models.py:23
 msgid "date joined"
-msgstr ""
+msgstr "date d'inscription"
 
 #: templates/cpu/cpu-details.html:69
 msgid "What is a Central Processing Unit (CPU)? "
-msgstr ""
+msgstr "Qu'est-ce qu'une unité centrale de traitement (CPU) ?"
 
 #: templates/cpu/cpu-details.html:71
 msgid ""
@@ -42,6 +42,10 @@ msgid ""
 "processes and executes instructions, most often from the hardware and "
 "software programs running on the device."
 msgstr ""
+"L’unité centrale de traitement (CPU) est le composant principal d’un ordinateur, agissant comme son « centre de contrôle ». "
+"Le CPU, également appelé « processeur central » ou « processeur principal », est un ensemble complexe de circuits électroniques "
+"qui exécute le système d’exploitation et les applications de la machine. Le CPU interprète, traite et exécute les instructions, "
+"le plus souvent provenant des programmes matériels et logiciels fonctionnant sur l’appareil."
 
 #: templates/cpu/cpu-details.html:72
 msgid ""
@@ -50,6 +54,10 @@ msgid ""
 "least one processing core, many contain multiple cores. A server with two "
 "hexa-core CPUs, for example, will have a total of 12 processors."
 msgstr ""
+"Le processeur effectue des opérations arithmétiques, logiques et autres pour transformer les données "
+"d’entrée en informations plus exploitables. Bien qu’un CPU doive contenir au moins un cœur de traitement, "
+"beaucoup en possèdent plusieurs. Un serveur équipé de deux processeurs hexa-cœurs, par exemple, disposera "
+"de douze cœurs au total."
 
 #: templates/cpu/cpu-details.html:74
 msgid "What You Need to Know About a Central Processing Unit (CPU)?"
@@ -65,4 +73,8 @@ msgid ""
 "identify the most important features based on those apps' requirements. "
 "Among the many things to consider are: "
 msgstr ""
-"Faire fonctionner plusieurs unités de traitement simultanément permet le multitâche et peut améliorer considérablement les performances. Mais bien que cela soit important, le nombre de cœurs et de processeurs n’est pas le seul facteur à prendre en compte. Pour déterminer le meilleur CPU pour un projet, les développeurs se concentrent généralement sur les applications spécifiques qui dépendront du CPU et identifient les caractéristiques les plus importantes en fonction des exigences de ces applications. Parmi les nombreux éléments à considérer, on trouve :"
+"Faire fonctionner plusieurs unités de traitement simultanément permet le multitâche et "
+"peut améliorer considérablement les performances. Mais bien que cela soit important, le nombre de "
+"cœurs et de processeurs n’est pas le seul facteur à prendre en compte. Pour déterminer le meilleur "
+"CPU pour un projet, les développeurs se concentrent généralement sur les applications spécifiques qui dépendront du CPU et "
+"identifient les caractéristiques les plus importantes en fonction des exigences de ces applications. Parmi les nombreux éléments à considérer, on trouve :"

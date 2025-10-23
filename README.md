@@ -112,4 +112,35 @@ Endpoints composition
 - `PUT     <domain>/api/v<#>/cpus/<id>/` -> Update a specific CPU
 - `DELETE  <domain>/api/v<#>/cpus/<id>/` -> Delete a specific CPU
 
+
+## Django Translations
+
+Setup commands
+```bash
+apt install -y gettext
+
+mkdir locale
+django-admin makemessages -l de
+processing locale de
+django-admin makemessages -l es
+processing locale es
+django-admin makemessages -l fr
+processing locale fr
+
+django-admin compilemessages
+```
+
+File structure
+```css
+app/
+├── locale/
+│   ├── de/LC_MESSAGES/
+│   │   ├── django.mo
+│   │   └── django.po
+│   ├── es/LC_MESSAGES/
+│   └── fr/LC_MESSAGES/
+├── pc_show_off/
+├── static/
+└── templates/
+```
 ---
