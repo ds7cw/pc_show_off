@@ -20,19 +20,19 @@ msgstr ""
 "1 : 2;\n"
 #: pc_show_off/accounts/models.py:16
 msgid "email address"
-msgstr ""
+msgstr "dirección de correo electrónico"
 
 #: pc_show_off/accounts/models.py:19
 msgid "A user with that email already exists."
-msgstr ""
+msgstr "Ya existe un usuario con ese correo electrónico."
 
 #: pc_show_off/accounts/models.py:23
 msgid "date joined"
-msgstr ""
+msgstr "fecha de registro"
 
 #: templates/cpu/cpu-details.html:69
 msgid "What is a Central Processing Unit (CPU)? "
-msgstr ""
+msgstr "¿Qué es una unidad central de procesamiento (CPU)?"
 
 #: templates/cpu/cpu-details.html:71
 msgid ""
@@ -43,6 +43,10 @@ msgid ""
 "processes and executes instructions, most often from the hardware and "
 "software programs running on the device."
 msgstr ""
+"La unidad central de procesamiento (CPU) es el componente principal de una computadora que actúa como su \"centro de control\". "
+"La CPU, también conocida como \"procesador central\" o \"principal\", es un conjunto complejo de circuitos electrónicos "
+"que ejecuta el sistema operativo y las aplicaciones de la máquina. La CPU interpreta, procesa y ejecuta instrucciones, "
+"generalmente provenientes del hardware y los programas de software que se ejecutan en el dispositivo."
 
 #: templates/cpu/cpu-details.html:72
 msgid ""
@@ -51,10 +55,13 @@ msgid ""
 "least one processing core, many contain multiple cores. A server with two "
 "hexa-core CPUs, for example, will have a total of 12 processors."
 msgstr ""
+"La CPU realiza operaciones aritméticas, lógicas y otras para transformar los datos de entrada en información de salida más útil. "
+"Aunque la CPU debe contener al menos un núcleo de procesamiento, muchas tienen múltiples núcleos. "
+"Un servidor con dos CPUs de seis núcleos, por ejemplo, tendrá un total de 12 procesadores."
 
 #: templates/cpu/cpu-details.html:74
 msgid "What You Need to Know About a Central Processing Unit (CPU)?"
-msgstr ""
+msgstr "Lo que necesita saber sobre una unidad central de procesamiento (CPU)"
 
 #: templates/cpu/cpu-details.html:75
 msgid ""
@@ -66,3 +73,8 @@ msgid ""
 "identify the most important features based on those apps' requirements. "
 "Among the many things to consider are: "
 msgstr ""
+"Ejecutar múltiples unidades de procesamiento simultáneamente permite realizar múltiples tareas y puede mejorar significativamente el rendimiento. "
+"Pero aunque es importante, el número de núcleos y procesadores no son los únicos factores que deben tenerse en cuenta. "
+"Para determinar la mejor CPU para un proyecto, los desarrolladores suelen centrarse en las aplicaciones específicas que dependerán de la CPU "
+"e identifican las características más importantes según los requisitos de esas aplicaciones. "
+"Entre las muchas cosas a considerar se encuentran:"

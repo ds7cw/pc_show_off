@@ -19,19 +19,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: pc_show_off/accounts/models.py:16
 msgid "email address"
-msgstr ""
+msgstr "E-Mail-Adresse"
 
 #: pc_show_off/accounts/models.py:19
 msgid "A user with that email already exists."
-msgstr ""
+msgstr "Ein Benutzer mit dieser E-Mail-Adresse existiert bereits."
 
 #: pc_show_off/accounts/models.py:23
 msgid "date joined"
-msgstr ""
+msgstr "Beitrittsdatum"
 
 #: templates/cpu/cpu-details.html:69
 msgid "What is a Central Processing Unit (CPU)? "
-msgstr ""
+msgstr "Was ist eine zentrale Verarbeitungseinheit (CPU)?"
 
 #: templates/cpu/cpu-details.html:71
 msgid ""
@@ -42,6 +42,10 @@ msgid ""
 "processes and executes instructions, most often from the hardware and "
 "software programs running on the device."
 msgstr ""
+"Die zentrale Verarbeitungseinheit (CPU) ist die Hauptkomponente eines Computers, die als dessen „Steuerzentrale“ fungiert. "
+"Die CPU, auch als „zentraler“ oder „Hauptprozessor“ bezeichnet, ist ein komplexes System elektronischer Schaltungen, "
+"das das Betriebssystem und die Anwendungen des Geräts ausführt. Die CPU interpretiert, verarbeitet und führt Anweisungen aus, "
+"meistens von den Hardware- und Softwareprogrammen, die auf dem Gerät laufen."
 
 #: templates/cpu/cpu-details.html:72
 msgid ""
@@ -50,10 +54,13 @@ msgid ""
 "least one processing core, many contain multiple cores. A server with two "
 "hexa-core CPUs, for example, will have a total of 12 processors."
 msgstr ""
+"Die CPU führt arithmetische, logische und andere Operationen aus, um Eingabedaten in besser nutzbare Ausgabedaten umzuwandeln. "
+"Obwohl eine CPU mindestens einen Verarbeitungskern enthalten muss, verfügen viele über mehrere Kerne. "
+"Ein Server mit zwei Hexa-Core-CPUs hat beispielsweise insgesamt 12 Prozessoren."
 
 #: templates/cpu/cpu-details.html:74
 msgid "What You Need to Know About a Central Processing Unit (CPU)?"
-msgstr ""
+msgstr "Was Sie über eine zentrale Verarbeitungseinheit (CPU) wissen sollten"
 
 #: templates/cpu/cpu-details.html:75
 msgid ""
@@ -65,3 +72,8 @@ msgid ""
 "identify the most important features based on those apps' requirements. "
 "Among the many things to consider are: "
 msgstr ""
+"Das gleichzeitige Ausführen mehrerer Verarbeitungseinheiten ermöglicht Multitasking und kann die Leistung erheblich verbessern. "
+"Aber obwohl die Anzahl der Kerne und Prozessoren wichtig ist, sind sie nicht die einzigen Faktoren, die berücksichtigt werden müssen. "
+"Um die beste CPU für ein Projekt zu bestimmen, konzentrieren sich Entwickler in der Regel auf die spezifischen Anwendungen, "
+"die von der CPU abhängig sind, und identifizieren die wichtigsten Merkmale basierend auf den Anforderungen dieser Anwendungen. "
+"Zu den vielen zu berücksichtigenden Aspekten gehören:"
